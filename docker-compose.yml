@@ -1,0 +1,34 @@
+version: "3.8"
+services:
+  postgresDB:
+    image: postgres
+    container_name: my_postgres
+    hostname: postgres
+    restart: always
+    shm_size: 128mb
+    ports:
+      - 5433:5432
+    environment:
+      POSTGRES_PASSWORD: admin
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    networks:
+      - rede
+      
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "admin@admin.com.br"
+      PGADMIN_DEFAULT_PASSWORD: "admin123"
+    ports:
+      - "15432:80"
+    depends_on:
+      - postgresDB
+    networks:
+      - rede
+volumes:
+  pg_data:
+
+networks:
+  rede:
+    driver: bridge
