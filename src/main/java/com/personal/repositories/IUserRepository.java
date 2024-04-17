@@ -1,11 +1,14 @@
 package com.personal.repositories;
 
 import com.personal.entities.User;
-import org.springframework.data.domain.Example;
+
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.List;
+public interface IUserRepository extends JpaRepository<User, String> {
 
-public interface IUserRepository extends JpaRepository <User, Long> {
+    Optional<UserDetails> findByEmail(String email);
 
 }
