@@ -1,5 +1,7 @@
 package com.personal.dtos.request;
 
-public record TrainingRequestDto(String jsonList) {
+import java.util.Date;
+
+public record TrainingRequestDto(Date date) {
 
 }
