@@ -29,9 +29,11 @@ public class User implements UserDetails {
     private String password;
     private EUserRole role;
 
+    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL)
+    private List<Training> trainings;
+
     public User(UserRequestDto data) {
         this.name = data.name();
-        this.email = data.email();
     }
 
     public User(String email, String password, EUserRole role) {
