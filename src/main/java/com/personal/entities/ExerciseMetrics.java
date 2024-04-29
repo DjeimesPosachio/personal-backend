@@ -3,27 +3,30 @@ package com.personal.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.List;
-
-@Table(name = "exercisemetric_entity")
-@Entity(name = "workoutplan_entity")
+@Table(name = "exercisemetric")
+@Entity(name = "exercisemetric")
 @Getter(AccessLevel.PUBLIC)
 @Setter(AccessLevel.PUBLIC)
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 public class ExerciseMetrics {
-    public String id;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "exercicioId")
+    private Exercise exercise;
 
-    private String sets;
+    @ManyToOne
+    @JoinColumn(name = "trainingId")
+    private Training training;
 
-    private String sequence;
+    private Long sets;
 
-    private float durationRest;
+    private Long sequence;
 
-    @OneToMany(mappedBy = "id")
-    private List<Exercise> exercise;
+    private Float durationRest;
 }

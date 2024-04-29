@@ -51,7 +51,7 @@ public class EmailService {
         return emailRepository.findAll().stream().map(EmailResponseDto::new).toList();
     }
 
-    public EmailResponseDto findById(UUID emailId) {
+    public EmailResponseDto findById(Long emailId) {
         Optional<Email> temp = emailRepository.findById(emailId);
         Email email = temp.get();
         return new EmailResponseDto(email);

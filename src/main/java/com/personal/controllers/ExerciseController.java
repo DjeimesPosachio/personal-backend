@@ -29,7 +29,7 @@ public class ExerciseController {
     }
 
     @GetMapping("/{id}")
-    public ExerciseResponseDto findById(@PathVariable String id) {
+    public ExerciseResponseDto findById(@PathVariable Long id) {
         Optional<Exercise> exercise = repository.findById(id);
         return new ExerciseResponseDto(exercise.get());
     }

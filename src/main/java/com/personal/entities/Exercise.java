@@ -5,8 +5,8 @@ import lombok.*;
 
 import java.util.Base64;
 
-@Table(name = "exercise_entity")
-@Entity(name = "exercise_entity")
+@Table(name = "exercise")
+@Entity(name = "exercise")
 @Getter(AccessLevel.PUBLIC)
 @Setter(AccessLevel.PUBLIC)
 @NoArgsConstructor
@@ -15,12 +15,16 @@ import java.util.Base64;
 public class Exercise {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private String name;
 
     private String description;
 
-    private Base64 [] UrlGif;
+    private Long sets;
+
+    private Long sequence;
+
+    private String UrlGif;
 }

@@ -32,7 +32,7 @@ public class EmailController {
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping()
     public ResponseEntity<EmailResponseDto> sendingEmail(@RequestBody EmailRequestDto emailDto) {
-        System.out.println("aki" + emailDto.emailFrom());
+        System.out.println("aki" + emailDto.getEmailFrom());
         Email sendEmail = emailService.sendEmail(new Email(emailDto));
         return new ResponseEntity<>(new EmailResponseDto(sendEmail), HttpStatus.CREATED);
     }
@@ -46,7 +46,7 @@ public class EmailController {
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/{emailId}")
-    public ResponseEntity<Object> getOneEmail(@PathVariable(value = "emailId") UUID emailId) {
+    public ResponseEntity<Object> getOneEmail(@PathVariable(value = "emailId") Long emailId) {
         EmailResponseDto emailModelOptional = emailService.findById(emailId);
         if (emailModelOptional == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Email not found.");
