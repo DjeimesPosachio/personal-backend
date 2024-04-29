@@ -1,7 +1,18 @@
 package com.personal.dtos.request;
 
 import com.personal.enums.EUserRole;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-public record RegisterRequestDto(String email, String password, EUserRole role) {
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class RegisterRequestDto {
+    private String email;
+    private String password;
+    private EUserRole role;
 
 }

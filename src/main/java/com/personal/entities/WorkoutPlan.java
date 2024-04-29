@@ -1,7 +1,5 @@
 package com.personal.entities;
 
-import java.util.List;
-
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -16,17 +14,13 @@ public class WorkoutPlan {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String type;
-    private String sets;
-    private String sequence;
-    private float duration;
+    private String description;
 
     @ManyToOne
     @JoinColumn(name = "trainingId")
     private Training training;
 
     @ManyToOne
-    @JoinColumn(name = "exerciseId")
-    private Exercise exercise;
-
+    @JoinColumn(name = "userId")
+    private User user;
 }

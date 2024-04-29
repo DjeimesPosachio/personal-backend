@@ -1,4 +1,18 @@
 package com.personal.dtos.request;
 
-public record EmailRequestDto(String ownerRef, String emailFrom, String emailTo, String subject, String text) {
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class EmailRequestDto {
+    private String ownerRef;
+    private String emailFrom;
+    private String emailTo;
+    private String subject;
+    private String text;
 }
