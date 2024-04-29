@@ -36,7 +36,7 @@ public class AuthenticationController {
     @PostMapping("/login/email")
     public ResponseEntity loginByEmail(@RequestBody @Valid AuthenticationEmailRequestDto data) {
 
-        var usernamePassword = new UsernamePasswordAuthenticationToken(data.email(), data.password());
+        var usernamePassword = new UsernamePasswordAuthenticationToken(data.getEmail(), data.getPassword());
         var auth = this.authenticationManager.authenticate(usernamePassword);
         var token = tokenService.generateToken((User) auth.getPrincipal());
 
@@ -46,7 +46,7 @@ public class AuthenticationController {
     @PostMapping("/login/phone")
     public ResponseEntity loginByPhone(@RequestBody @Valid AuthenticationPhoneRequestDto data) {
 
-        var usernamePassword = new UsernamePasswordAuthenticationToken(data.phone(), data.password());
+        var usernamePassword = new UsernamePasswordAuthenticationToken(data.getPhone(), data.getPassword());
         var auth = this.authenticationManager.authenticate(usernamePassword);
         var token = tokenService.generateToken((User) auth.getPrincipal());
 
@@ -56,11 +56,11 @@ public class AuthenticationController {
 
     @PostMapping("/register")
     public ResponseEntity register(@RequestBody @Valid RegisterRequestDto data) {
-        if (this.repository.findByEmail(data.email()) != null)
+        if (this.repository.findByEmail(data.getEmail()).isPresent())
             return ResponseEntity.badRequest().build();
 
-        String encryptedPassword = new BCryptPasswordEncoder().encode(data.password());
-        User newUser = new User(data.email(), encryptedPassword, data.role());
+        String encryptedPassword = new BCryptPasswordEncoder().encode(data.getPassword());
+        User newUser = new User(data.getEmail(), encryptedPassword, data.getRole());
 
         this.repository.save(newUser);
 

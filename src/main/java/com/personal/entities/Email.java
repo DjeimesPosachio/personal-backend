@@ -14,8 +14,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.*;
 
-@Entity(name = "email_entity")
-@Table(name = "email_entity")
+@Entity(name = "email")
+@Table(name = "email")
 @Getter(AccessLevel.PUBLIC)
 @Setter(AccessLevel.PUBLIC)
 @NoArgsConstructor
@@ -36,11 +36,11 @@ public class Email {
     private EStatusEmail statusEmail;
 
     public Email(EmailRequestDto email) {
-        this.ownerRef = email.ownerRef();
-        this.emailFrom = email.emailFrom();
-        this.emailTo = email.emailTo();
-        this.subject = email.subject();
-        this.text = email.text();
+        this.ownerRef = email.getOwnerRef();
+        this.emailFrom = email.getEmailFrom();
+        this.emailTo = email.getEmailTo();
+        this.subject = email.getSubject();
+        this.text = email.getText();
     }
 
 }

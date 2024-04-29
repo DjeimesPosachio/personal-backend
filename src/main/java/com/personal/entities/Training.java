@@ -8,8 +8,8 @@ import com.personal.dtos.request.TrainingRequestDto;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Table(name = "training_entity")
-@Entity(name = "training_entity")
+@Table(name = "training")
+@Entity(name = "training")
 @Getter(AccessLevel.PUBLIC)
 @Setter(AccessLevel.PUBLIC)
 @NoArgsConstructor
@@ -17,21 +17,24 @@ import lombok.*;
 @EqualsAndHashCode(of = "id")
 public class Training {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private Boolean treinoAtual;
+
+    private String description;
 
     @Temporal(TemporalType.DATE)
     private Date date;
 
-    @OneToMany(mappedBy = "id")
+    @OneToMany(mappedBy = "training")
     private List<ExerciseMetrics> exerciseMetrics;
 
-    @OneToMany(mappedBy = "id")
+    @JoinColumn(name = "workoutplanId", referencedColumnName = "id")
+    @ManyToOne(fetch = FetchType.LAZY)
     private WorkoutPlan workoutPlan;
 
     public Training(TrainingRequestDto data) {
-        this.date = data.date();
+        this.date = data.getDate();
     }
 }

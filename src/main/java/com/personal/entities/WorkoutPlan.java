@@ -3,8 +3,11 @@ package com.personal.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Table(name = "workoutplan_entity")
-@Entity(name = "workoutplan_entity")
+import java.time.LocalDate;
+import java.util.List;
+
+@Table(name = "workoutplan")
+@Entity(name = "workoutplan")
 @Getter(AccessLevel.PUBLIC)
 @Setter(AccessLevel.PUBLIC)
 @NoArgsConstructor
@@ -14,11 +17,15 @@ public class WorkoutPlan {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String description;
 
-    @ManyToOne
-    @JoinColumn(name = "trainingId")
-    private Training training;
+    @Temporal(TemporalType.DATE)
+    private LocalDate dataInicialPlano;
+
+    @Temporal(TemporalType.DATE)
+    private LocalDate dataFinalPlano;
+
+    @OneToMany(mappedBy = "workoutPlan")
+    private List<Training> training;
 
     @ManyToOne
     @JoinColumn(name = "userId")
