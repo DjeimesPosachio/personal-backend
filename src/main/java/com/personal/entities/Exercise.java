@@ -1,10 +1,9 @@
 package com.personal.entities;
 
-import java.util.List;
-import java.util.Set;
-
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.Base64;
 
 @Table(name = "exercise_entity")
 @Entity(name = "exercise_entity")
@@ -23,8 +22,5 @@ public class Exercise {
 
     private String description;
 
-    private String UrlGif;
-
-    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL)
-    private List<WorkoutPlan> workoutPlans;
+    private Base64 [] UrlGif;
 }
