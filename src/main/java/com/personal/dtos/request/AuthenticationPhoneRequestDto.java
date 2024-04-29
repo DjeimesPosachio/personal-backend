@@ -1,4 +1,15 @@
 package com.personal.dtos.request;
 
-public record AuthenticationPhoneRequestDto(String phone, String password) {
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class AuthenticationPhoneRequestDto {
+    private String phone;
+    private String password;
 }

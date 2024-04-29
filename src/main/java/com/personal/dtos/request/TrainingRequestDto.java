@@ -1,7 +1,16 @@
 package com.personal.dtos.request;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.util.Date;
 
-public record TrainingRequestDto(Date date) {
-
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class TrainingRequestDto{
+    private Date date;
 }

@@ -1,5 +1,16 @@
 package com.personal.dtos.request;
 
-public record AuthenticationEmailRequestDto(String email, String password) {
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class AuthenticationEmailRequestDto {
+    private String email;
+    private String password;
 }
+
