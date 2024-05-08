@@ -24,29 +24,26 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 
 @Tag(name = "Email", description = "Endpoints de exemplo")
 @RestController
-@RequestMapping("email")
+@RequestMapping("/v1/email")
 public class EmailController {
     @Autowired
     EmailService emailService;
 
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping()
     public ResponseEntity<EmailResponseDto> sendingEmail(@RequestBody EmailRequestDto emailDto) {
-        System.out.println("aki" + emailDto.getEmailFrom());
+
         Email sendEmail = emailService.sendEmail(new Email(emailDto));
         return new ResponseEntity<>(new EmailResponseDto(sendEmail), HttpStatus.CREATED);
     }
 
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/emails")
     public ResponseEntity<List<EmailResponseDto>> getAllEmails() {
 
         return new ResponseEntity<>(emailService.findAll(), HttpStatus.OK);
     }
 
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/{emailId}")
-    public ResponseEntity<Object> getOneEmail(@PathVariable(value = "emailId") Long emailId) {
+    public ResponseEntity<Object> getOneEmail(@PathVariable(value = "emailId") UUID emailId) {
         EmailResponseDto emailModelOptional = emailService.findById(emailId);
         if (emailModelOptional == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Email not found.");

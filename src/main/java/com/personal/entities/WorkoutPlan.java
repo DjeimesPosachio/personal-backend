@@ -6,6 +6,8 @@ import lombok.*;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.personal.dtos.request.WorkoutPlanRequestDto;
+
 @Table(name = "workoutplan")
 @Entity(name = "workoutplan")
 @Getter(AccessLevel.PUBLIC)
@@ -14,6 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 public class WorkoutPlan {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -30,4 +33,9 @@ public class WorkoutPlan {
     @ManyToOne
     @JoinColumn(name = "userId")
     private User user;
+
+    public WorkoutPlan(WorkoutPlanRequestDto dto) {
+        this.dataInicialPlano = dto.getDataInicialPlano();
+        this.dataFinalPlano = dto.getDataFinalPlano();
+    }
 }

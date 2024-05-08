@@ -10,7 +10,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 
 @Tag(name = "Dieta", description = "Endpoints de exemplo")
 @RestController
-@RequestMapping("diet")
+@RequestMapping("/v1/diet")
 public class DietController {
 
     @Autowired

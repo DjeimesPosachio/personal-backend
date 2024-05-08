@@ -1,5 +1,7 @@
 package com.personal.entities;
 
+import com.personal.dtos.request.ExerciseMetricsRequestDto;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -16,6 +18,12 @@ public class ExerciseMetrics {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private Long sets;
+
+    private Long sequence;
+
+    private Float durationRest;
+
     @ManyToOne
     @JoinColumn(name = "exercicioId")
     private Exercise exercise;
@@ -24,9 +32,10 @@ public class ExerciseMetrics {
     @JoinColumn(name = "trainingId")
     private Training training;
 
-    private Long sets;
+    public ExerciseMetrics(ExerciseMetricsRequestDto dto) {
+        this.sets = dto.getSets();
+        this.sequence = dto.getSequence();
+        this.durationRest = dto.getDurationRest();
+    }
 
-    private Long sequence;
-
-    private Float durationRest;
 }

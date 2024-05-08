@@ -2,47 +2,44 @@ package com.personal.controllers;
 
 import com.personal.dtos.request.UserRequestDto;
 import com.personal.dtos.response.UserResponseDto;
-import com.personal.entities.User;
-import com.personal.repositories.IUserRepository;
+import com.personal.services.UserService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Tag(name = "Usuario", description = "Endpoints de exemplo")
+@Tag(name = "Usuario")
 @RestController
-@RequestMapping("user")
+@RequestMapping("/v1/user")
+
 public class UserController {
 
     @Autowired
-    private IUserRepository repository;
+    private UserService service;
 
-    // @CrossOrigin(origins = "*", allowedHeaders = "*")
-    @Async
     @PostMapping
-    public ResponseEntity<User> CreateUser(@RequestBody UserRequestDto data) {
-        return ResponseEntity.ok(repository.save(new User(data)));
+    public ResponseEntity<UserResponseDto> CreateUser(@RequestBody @Valid UserRequestDto data) {
+        return ResponseEntity.ok(service.create(data));
     }
 
-    // @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping
-    public List<UserResponseDto> GetAll() {
-        return repository.findAll().stream().map(UserResponseDto::new).toList();
+    public ResponseEntity<List<UserResponseDto>> GetAll() {
+        return ResponseEntity.ok(service.findAll());
     }
 
-    @DeleteMapping
-    public String delete() {
-        return "alguma coisa";
+    @PutMapping("/{id}")
+    public ResponseEntity<UserResponseDto> update(@PathVariable Long id, @RequestBody UserRequestDto dto) {
+        return ResponseEntity.ok(service.update(id, dto));
     }
 
-    @PutMapping
-    public String update() {
-        return "update";
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        service.delete(id);
+        return ResponseEntity.noContent().build();
     }
-
 }

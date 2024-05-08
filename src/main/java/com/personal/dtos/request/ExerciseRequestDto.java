@@ -1,7 +1,6 @@
 package com.personal.dtos.request;
 
-import java.time.LocalDate;
-
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,9 +10,11 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class TrainingRequestDto {
-    private Boolean treinoAtual;
+public class ExerciseRequestDto {
+    @NotBlank(message = "description cannot be blank")
+    private String name;
     private String description;
-    private LocalDate date;
-    private Long WorkoutPlanId;
+    private long sets;
+    private long sequence;
+
 }

@@ -5,16 +5,24 @@ import java.util.UUID;
 
 import com.personal.entities.Email;
 import com.personal.enums.EStatusEmail;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-public record EmailResponseDto(
-        UUID id,
-        String ownerRef,
-        String emailFrom,
-        String emailTo,
-        String subject,
-        String text,
-        LocalDateTime sendDateEmail,
-        EStatusEmail statusEmail) {
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class EmailResponseDto {
+    private UUID id;
+    private String ownerRef;
+    private String emailFrom;
+    private String emailTo;
+    private String subject;
+    private String text;
+    private LocalDateTime sendDateEmail;
+    private EStatusEmail statusEmail;
 
     public EmailResponseDto(Email email) {
         this(email.getId(),

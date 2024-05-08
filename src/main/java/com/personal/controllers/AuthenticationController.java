@@ -1,69 +1,38 @@
 package com.personal.controllers;
 
-import com.personal.dtos.request.AuthenticationEmailRequestDto;
-import com.personal.dtos.request.AuthenticationPhoneRequestDto;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.personal.dtos.request.AuthenticationRequestDto;
 import com.personal.dtos.request.RegisterRequestDto;
 import com.personal.dtos.response.LoginResponseDto;
-import com.personal.entities.User;
-import com.personal.repositories.IUserRepository;
-import com.personal.segurity.TokenService;
+
+import com.personal.services.AuthenticationService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
-@Tag(name = "Auth", description = "Endpoints de exemplo")
+@Tag(name = "Auth")
 @RestController
-@RequestMapping("auth")
+@RequestMapping("/v1/auth")
 public class AuthenticationController {
     @Autowired
-    private AuthenticationManager authenticationManager;
-    @Autowired
-    private IUserRepository repository;
-    @Autowired
-    private TokenService tokenService;
+    private AuthenticationService service;
 
-
-    @PostMapping("/login/email")
-    public ResponseEntity loginByEmail(@RequestBody @Valid AuthenticationEmailRequestDto data) {
-
-        var usernamePassword = new UsernamePasswordAuthenticationToken(data.getEmail(), data.getPassword());
-        var auth = this.authenticationManager.authenticate(usernamePassword);
-        var token = tokenService.generateToken((User) auth.getPrincipal());
-
-        return ResponseEntity.ok(new LoginResponseDto(token));
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponseDto> login(@RequestBody @Valid AuthenticationRequestDto data) {
+        return ResponseEntity.ok(service.Login(data));
     }
-
-    @PostMapping("/login/phone")
-    public ResponseEntity loginByPhone(@RequestBody @Valid AuthenticationPhoneRequestDto data) {
-
-        var usernamePassword = new UsernamePasswordAuthenticationToken(data.getPhone(), data.getPassword());
-        var auth = this.authenticationManager.authenticate(usernamePassword);
-        var token = tokenService.generateToken((User) auth.getPrincipal());
-
-        return ResponseEntity.ok(new LoginResponseDto(token));
-    }
-
 
     @PostMapping("/register")
-    public ResponseEntity register(@RequestBody @Valid RegisterRequestDto data) {
-        if (this.repository.findByEmail(data.getEmail()).isPresent())
-            return ResponseEntity.badRequest().build();
-
-        String encryptedPassword = new BCryptPasswordEncoder().encode(data.getPassword());
-        User newUser = new User(data.getEmail(), encryptedPassword, data.getRole());
-
-        this.repository.save(newUser);
-
+    public ResponseEntity<Object> register(@RequestBody @Valid RegisterRequestDto data) {
+        service.Register(data);
         return ResponseEntity.ok().build();
     }
+
 }

@@ -25,15 +25,17 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    @Column(unique = true, nullable = false)
     private String email;
     private String password;
     private EUserRole role;
 
     @OneToMany(mappedBy = "id", cascade = CascadeType.ALL)
-    private List<Training> trainings;
+    private List<WorkoutPlan> workoutPlans;
 
     public User(UserRequestDto data) {
-        this.name = data.name();
+        this.name = data.getName();
+        this.email = data.getEmail();
     }
 
     public User(String email, String password, EUserRole role) {

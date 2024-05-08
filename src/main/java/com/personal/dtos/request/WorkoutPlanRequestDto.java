@@ -11,9 +11,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class TrainingRequestDto {
-    private Boolean treinoAtual;
-    private String description;
-    private LocalDate date;
-    private Long WorkoutPlanId;
+public class WorkoutPlanRequestDto {
+    private LocalDate dataInicialPlano;
+    private LocalDate dataFinalPlano;
+    private Long UserId;
 }
