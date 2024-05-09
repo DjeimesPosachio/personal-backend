@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 
+import com.personal.entities.WorkoutPlan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
@@ -55,6 +56,10 @@ public class ExerciseService {
         return new ExerciseResponseDto(exercise.get());
     }
 
+    public Exercise recuperarPorId(Long id) {
+        return repository.findById(id).orElseThrow(() -> new RuntimeException("Exercício não encontrado"));
+    }
+
     public ExerciseResponseDto update(Long id, ExerciseRequestDto dto) {
         Optional<Exercise> opexercise = repository.findById(id);
         if (opexercise.isEmpty()) {
@@ -62,7 +67,6 @@ public class ExerciseService {
         }
         Exercise updatedExercise = opexercise.get();
         updatedExercise.setName(dto.getName());
-        updatedExercise.setDescription(dto.getDescription());
         updatedExercise.setSets(dto.getSets());
         updatedExercise.setSequence(dto.getSequence());
         return new ExerciseResponseDto(repository.save(updatedExercise));

@@ -7,6 +7,7 @@ import lombok.*;
 
 @Table(name = "exercisemetric")
 @Entity(name = "exercisemetric")
+@Builder
 @Getter(AccessLevel.PUBLIC)
 @Setter(AccessLevel.PUBLIC)
 @NoArgsConstructor

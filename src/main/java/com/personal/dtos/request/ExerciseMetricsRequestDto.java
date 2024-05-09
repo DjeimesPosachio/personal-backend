@@ -10,14 +10,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ExerciseMetricsRequestDto {
+    private Long id;
     private Long sets;
-
     private Long sequence;
-
     private Float durationRest;
-
     private Long exerciseId;
-
     private Long trainingId;
-
 }

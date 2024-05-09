@@ -25,25 +25,8 @@ public class TrainingController {
     @Autowired
     private TrainingService service;
 
-    @PostMapping
-    public ResponseEntity<TrainingResponseDto> Create(@RequestBody TrainingRequestDto dto) {
-
-        return ResponseEntity.ok(service.create(dto));
-    }
-
     @GetMapping
     public ResponseEntity<List<TrainingResponseDto>> GetAll() {
         return ResponseEntity.ok(service.findAll());
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<TrainingResponseDto> update(@PathVariable Long id, @RequestBody TrainingRequestDto dto) {
-        return ResponseEntity.ok(service.update(id, dto));
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
-        service.delete(id);
-        return ResponseEntity.noContent().build();
     }
 }

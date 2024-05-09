@@ -28,7 +28,6 @@ public class TrainingResponseDto {
         this.id = training.getId();
         this.treinoAtual = training.getTreinoAtual();
         this.description = training.getDescription();
-        this.date = training.getDate();
         this.exerciseMetrics = training.getExerciseMetrics() != null ? training.getExerciseMetrics().stream()
                 .map(ExerciseMetricsResponseDto::new)
                 .collect(Collectors.toList())

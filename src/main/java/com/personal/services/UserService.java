@@ -1,14 +1,5 @@
 package com.personal.services;
 
-import java.util.List;
-import java.util.Optional;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Service;
-
-import org.springframework.web.bind.annotation.PathVariable;
-
 import com.personal.dtos.request.UserRequestDto;
 import com.personal.dtos.response.UserResponseDto;
 import com.personal.entities.Email;
@@ -16,6 +7,13 @@ import com.personal.entities.User;
 import com.personal.enums.EUserRole;
 import com.personal.exceptions.EventNotFoundException;
 import com.personal.repositories.IUserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
+
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -50,8 +48,12 @@ public class UserService {
     }
 
     public UserResponseDto findById(@PathVariable Long id) {
-        Optional<User> exercise = repository.findById(id);
-        return new UserResponseDto(exercise.get());
+        Optional<User> user = repository.findById(id);
+        return new UserResponseDto(user.get());
+    }
+
+    public User recuperarPorId(Long id) {
+        return repository.findById(id).orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
     }
 
     public UserResponseDto update(@PathVariable Long id,

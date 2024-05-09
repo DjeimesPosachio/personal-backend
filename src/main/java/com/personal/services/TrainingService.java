@@ -23,46 +23,7 @@ public class TrainingService {
     @Autowired
     private IWorkoutPlanRepository workoutPlanrepository;
 
-    public TrainingResponseDto create(@RequestBody TrainingRequestDto dto) {
-        Optional<WorkoutPlan> workoutTrainingOptional = workoutPlanrepository.findById(dto.getWorkoutPlanId());
-        if (workoutTrainingOptional.isEmpty()) {
-            throw new EventNotFoundException("Nao Encontrado");
-        }
-
-        WorkoutPlan workoutTraining = workoutTrainingOptional.get();
-        Training training = new Training(dto);
-        training.setWorkoutPlan(workoutTraining);
-        return new TrainingResponseDto(repository.save(training));
-
-    }
-
     public List<TrainingResponseDto> findAll() {
         return repository.findAll().stream().map(TrainingResponseDto::new).toList();
-    }
-
-    public TrainingResponseDto findById(@PathVariable Long id) {
-        Optional<Training> Training = repository.findById(id);
-        return new TrainingResponseDto(Training.get());
-    }
-
-    public TrainingResponseDto update(@PathVariable Long id,
-            TrainingRequestDto newData) {
-        Optional<Training> training = repository.findById(id);
-        if (training.isEmpty()) {
-            throw new Error("nao existe");
-        }
-        Training teste = training.get();
-
-        Training updatedTraining = repository.save(teste);
-        return new TrainingResponseDto(updatedTraining);
-    }
-
-    public Long delete(@PathVariable Long id) {
-        Optional<Training> opexercise = repository.findById(id);
-        if (opexercise.isEmpty()) {
-            throw new EventNotFoundException("Nao Existe");
-        }
-        repository.delete(opexercise.get());
-        return id;
     }
 }

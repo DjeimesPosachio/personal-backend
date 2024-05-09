@@ -10,6 +10,7 @@ import com.personal.dtos.request.WorkoutPlanRequestDto;
 
 @Table(name = "workoutplan")
 @Entity(name = "workoutplan")
+@Builder
 @Getter(AccessLevel.PUBLIC)
 @Setter(AccessLevel.PUBLIC)
 @NoArgsConstructor
@@ -28,7 +29,7 @@ public class WorkoutPlan {
     private LocalDate dataFinalPlano;
 
     @OneToMany(mappedBy = "workoutPlan")
-    private List<Training> training;
+    private List<Training> trainings;
 
     @ManyToOne
     @JoinColumn(name = "userId")

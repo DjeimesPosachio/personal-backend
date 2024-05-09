@@ -16,5 +16,4 @@ public class ExerciseRequestDto {
     private String description;
     private long sets;
     private long sequence;
-
 }

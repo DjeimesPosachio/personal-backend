@@ -1,6 +1,7 @@
 package com.personal.dtos.request;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,5 +15,6 @@ import lombok.NoArgsConstructor;
 public class WorkoutPlanRequestDto {
     private LocalDate dataInicialPlano;
     private LocalDate dataFinalPlano;
-    private Long UserId;
+    private Long userId;
+    private List<TrainingRequestDto> trainings;
 }

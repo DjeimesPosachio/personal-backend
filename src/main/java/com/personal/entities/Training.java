@@ -11,6 +11,7 @@ import lombok.*;
 
 @Table(name = "training")
 @Entity(name = "training")
+@Builder
 @Getter(AccessLevel.PUBLIC)
 @Setter(AccessLevel.PUBLIC)
 @NoArgsConstructor
@@ -25,8 +26,6 @@ public class Training {
 
   private String description;
 
-  private LocalDate date;
-
   @OneToMany(mappedBy = "training")
   private List<ExerciseMetrics> exerciseMetrics;
 
@@ -37,6 +36,5 @@ public class Training {
   public Training(TrainingRequestDto dto) {
     this.treinoAtual = dto.getTreinoAtual();
     this.description = dto.getDescription();
-    this.date = dto.getDate();
   }
 }

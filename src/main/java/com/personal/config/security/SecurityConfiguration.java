@@ -7,7 +7,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class SecurityConfiguration {
-    private static final String[] WHITE_LIST_ORIGIN = {"http://localhost:3000"};
+    private static final String[] WHITE_LIST_ORIGIN = {"http://localhost:3001"};
     private final long MAX_AGE_SECS = 3600;
 
     @Bean
