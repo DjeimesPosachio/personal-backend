@@ -1,11 +1,10 @@
 package com.personal.services;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.TimeUnit;
-
-import com.personal.entities.WorkoutPlan;
+import com.personal.dtos.request.ExerciseRequestDto;
+import com.personal.dtos.response.ExerciseResponseDto;
+import com.personal.entities.Exercise;
+import com.personal.exceptions.EventNotFoundException;
+import com.personal.repositories.IExerciseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
@@ -13,11 +12,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.personal.dtos.request.ExerciseRequestDto;
-import com.personal.dtos.response.ExerciseResponseDto;
-import com.personal.entities.Exercise;
-import com.personal.exceptions.EventNotFoundException;
-import com.personal.repositories.IExerciseRepository;
+import java.util.List;
+import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 
 @Service
 public class ExerciseService {

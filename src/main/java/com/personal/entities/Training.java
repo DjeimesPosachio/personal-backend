@@ -1,13 +1,10 @@
 package com.personal.entities;
 
-import java.time.LocalDate;
-import java.util.Date;
-import java.util.List;
-
 import com.personal.dtos.request.TrainingRequestDto;
-
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.List;
 
 @Table(name = "training")
 @Entity(name = "training")
