@@ -1,8 +1,8 @@
 package com.personal.controllers;
 
-import com.personal.dtos.request.ExerciseRequestDto;
-import com.personal.dtos.response.ExerciseResponseDto;
-import com.personal.services.ExerciseService;
+import com.personal.dtos.request.ExercicioRequestDto;
+import com.personal.dtos.response.ExercicioResponseDto;
+import com.personal.services.ExercicioService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -28,34 +28,34 @@ import java.util.concurrent.CompletableFuture;
 @Tag(name = "Exercicio", description = "Criacao de exercicio")
 @RestController
 @RequestMapping("/v1/exercise")
-public class ExerciseController {
+public class ExercicioController {
 
     @Autowired
-    private ExerciseService service;
+    private ExercicioService service;
 
     @PostMapping(consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
-    public ExerciseResponseDto create(@Valid ExerciseRequestDto dto, @RequestPart MultipartFile file) {
+    public ExercicioResponseDto create(@Valid ExercicioRequestDto dto, @RequestPart MultipartFile file) {
         return service.create(dto, file);
     }
 
     @GetMapping("all")
-    public List<ExerciseResponseDto> findAll() {
+    public List<ExercicioResponseDto> findAll() {
         return service.findAll();
     }
 
     @Async
     @GetMapping("allAsync")
-    public CompletableFuture<List<ExerciseResponseDto>> findAllAsync() throws InterruptedException {
+    public CompletableFuture<List<ExercicioResponseDto>> findAllAsync() throws InterruptedException {
         return service.findAllAsync();
     }
 
     @GetMapping("/{id}")
-    public ExerciseResponseDto findById(@PathVariable Long id) {
+    public ExercicioResponseDto findById(@PathVariable Long id) {
         return service.findById(id);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ExerciseResponseDto> update(@PathVariable Long id, @RequestBody ExerciseRequestDto dto) {
+    public ResponseEntity<ExercicioResponseDto> update(@PathVariable Long id, @RequestBody ExercicioRequestDto dto) {
         return ResponseEntity.ok(service.update(id, dto));
     }
 

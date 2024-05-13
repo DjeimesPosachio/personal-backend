@@ -1,5 +1,6 @@
 package com.personal.services;
 
+import com.personal.dtos.response.UsuarioResponseDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -11,7 +12,7 @@ import com.personal.dtos.request.RegisterRequestDto;
 import com.personal.dtos.response.LoginResponseDto;
 import com.personal.entities.User;
 import com.personal.exceptions.EventNotFoundException;
-import com.personal.repositories.IUserRepository;
+import com.personal.repositories.UsuarioRepository;
 import com.personal.segurity.TokenService;
 
 @Service
@@ -20,7 +21,7 @@ public class AuthenticationService {
     @Autowired
     private AuthenticationManager authenticationManager;
     @Autowired
-    private IUserRepository repository;
+    private UsuarioRepository repository;
     @Autowired
     private TokenService tokenService;
 
@@ -28,7 +29,14 @@ public class AuthenticationService {
         var usernamePassword = new UsernamePasswordAuthenticationToken(dto.getEmail(), dto.getPassword());
         var auth = this.authenticationManager.authenticate(usernamePassword);
         var token = tokenService.generateToken((User) auth.getPrincipal());
-        return new LoginResponseDto(token);
+
+        UsuarioResponseDto userResponseDto = UsuarioResponseDto.builder()
+                .id(((User) auth.getPrincipal()).getId())
+                .email(((User) auth.getPrincipal()).getEmail())
+                .name(((User) auth.getPrincipal()).getNome())
+                .build();
+
+        return new LoginResponseDto(token, userResponseDto);
     }
 
     public void Register(RegisterRequestDto dto) {

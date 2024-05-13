@@ -10,10 +10,10 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ExerciseRequestDto {
+public class ExercicioRequestDto {
     @NotBlank(message = "description cannot be blank")
     private String name;
-    private String description;
-    private long sets;
-    private long sequence;
+    private String nomeExercicio;
+    private long series;
+    private long repeticoes;
 }

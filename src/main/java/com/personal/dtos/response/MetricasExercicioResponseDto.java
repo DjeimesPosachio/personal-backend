@@ -1,6 +1,6 @@
 package com.personal.dtos.response;
 
-import com.personal.entities.ExerciseMetrics;
+import com.personal.entities.MetricasExercicioEntitie;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ExerciseMetricsResponseDto {
+public class MetricasExercicioResponseDto {
     private Long id;
 
     private Long sets;
@@ -20,11 +20,11 @@ public class ExerciseMetricsResponseDto {
 
     private Float durationRest;
 
-    public ExerciseMetricsResponseDto(ExerciseMetrics metrics) {
+    public MetricasExercicioResponseDto(MetricasExercicioEntitie metrics) {
         this(
                 metrics.getId(),
-                metrics.getSets(),
-                metrics.getSequence(),
-                metrics.getDurationRest());
+                metrics.getSeries(),
+                metrics.getRepeticoes(),
+                metrics.getTempoDescanso());
     }
 }

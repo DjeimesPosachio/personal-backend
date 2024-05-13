@@ -13,18 +13,18 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserResponseDto {
+public class UsuarioResponseDto {
     private Long id;
     private String name;
     private String email;
-    private List<WorkoutPlanResponseDto> workoutplans;
+    private List<PlanejamentoTreinoResponseDto> planejamentoTreino;
 
-    public UserResponseDto(User user) {
+    public UsuarioResponseDto(User user) {
         this.id = user.getId();
-        this.name = user.getName();
+        this.name = user.getNome();
         this.email = user.getEmail();
-        this.workoutplans = user.getWorkoutPlans() != null ? user.getWorkoutPlans().stream()
-                .map(WorkoutPlanResponseDto::new)
+        this.planejamentoTreino = user.getPlanejamentoTreinoEntities() != null ? user.getPlanejamentoTreinoEntities().stream()
+                .map(PlanejamentoTreinoResponseDto::new)
                 .collect(Collectors.toList())
                 : List.of();
     }

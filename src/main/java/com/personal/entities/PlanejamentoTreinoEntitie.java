@@ -6,17 +6,17 @@ import lombok.*;
 import java.time.LocalDate;
 import java.util.List;
 
-import com.personal.dtos.request.WorkoutPlanRequestDto;
+import com.personal.dtos.request.PlanejamentoTreinoRequestDto;
 
-@Table(name = "workoutplan")
-@Entity(name = "workoutplan")
+@Table(name = "planejamentoTreino")
+@Entity(name = "planejamentoTreino")
 @Builder
 @Getter(AccessLevel.PUBLIC)
 @Setter(AccessLevel.PUBLIC)
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
-public class WorkoutPlan {
+public class PlanejamentoTreinoEntitie {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,14 +28,14 @@ public class WorkoutPlan {
     @Temporal(TemporalType.DATE)
     private LocalDate dataFinalPlano;
 
-    @OneToMany(mappedBy = "workoutPlan")
-    private List<Training> trainings;
+    @OneToMany(mappedBy = "planejamentoTreinoEntitie")
+    private List<TreinoEntitie> treinoEntities;
 
     @ManyToOne
     @JoinColumn(name = "userId")
     private User user;
 
-    public WorkoutPlan(WorkoutPlanRequestDto dto) {
+    public PlanejamentoTreinoEntitie(PlanejamentoTreinoRequestDto dto) {
         this.dataInicialPlano = dto.getDataInicialPlano();
         this.dataFinalPlano = dto.getDataFinalPlano();
     }

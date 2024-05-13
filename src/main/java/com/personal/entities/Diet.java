@@ -5,8 +5,8 @@ import com.personal.dtos.request.DietRequestDto;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Table(name = "diet_entity")
-@Entity(name = "diet_entity")
+@Table(name = "dieta")
+@Entity(name = "dieta")
 @Getter(AccessLevel.PUBLIC)
 @Setter(AccessLevel.PUBLIC)
 @NoArgsConstructor

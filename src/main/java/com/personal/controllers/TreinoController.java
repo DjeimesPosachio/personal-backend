@@ -1,7 +1,7 @@
 package com.personal.controllers;
 
-import com.personal.dtos.response.TrainingResponseDto;
-import com.personal.services.TrainingService;
+import com.personal.dtos.response.TreinoResponseDto;
+import com.personal.services.TreinoService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,12 +14,12 @@ import java.util.List;
 @Tag(name = "Treino", description = "Endpoints de exemplo")
 @RestController
 @RequestMapping("/v1/training")
-public class TrainingController {
+public class TreinoController {
     @Autowired
-    private TrainingService service;
+    private TreinoService service;
 
     @GetMapping
-    public ResponseEntity<List<TrainingResponseDto>> GetAll() {
+    public ResponseEntity<List<TreinoResponseDto>> GetAll() {
         return ResponseEntity.ok(service.findAll());
     }
 }

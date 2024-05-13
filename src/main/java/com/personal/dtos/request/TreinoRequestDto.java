@@ -5,15 +5,15 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ExerciseMetricsRequestDto {
+public class TreinoRequestDto {
     private Long id;
-    private Long sets;
-    private Long sequence;
-    private Float durationRest;
-    private Long exerciseId;
-    private Long trainingId;
+    private Boolean treinoAtual;
+    private String descricao;
+    private List<MetricasExerciciosRequestDto> metricasExercicios;
 }

@@ -13,8 +13,8 @@ import com.personal.enums.EUserRole;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Table(name = "user_entity")
-@Entity(name = "user_entity")
+@Table(name = "usuario")
+@Entity(name = "usuario")
 @Getter(AccessLevel.PUBLIC)
 @Setter(AccessLevel.PUBLIC)
 @NoArgsConstructor
@@ -24,17 +24,17 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
+    private String nome;
     @Column(unique = true, nullable = false)
     private String email;
     private String password;
     private EUserRole role;
 
     @OneToMany(mappedBy = "id", cascade = CascadeType.ALL)
-    private List<WorkoutPlan> workoutPlans;
+    private List<PlanejamentoTreinoEntitie> planejamentoTreinoEntities;
 
     public User(UserRequestDto data) {
-        this.name = data.getName();
+        this.nome = data.getName();
         this.email = data.getEmail();
     }
 

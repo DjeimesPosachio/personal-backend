@@ -1,8 +1,8 @@
 package com.personal.controllers;
 
-import com.personal.dtos.request.WorkoutPlanRequestDto;
-import com.personal.dtos.response.WorkoutPlanResponseDto;
-import com.personal.services.WorkoutPlanService;
+import com.personal.dtos.request.PlanejamentoTreinoRequestDto;
+import com.personal.dtos.response.PlanejamentoTreinoResponseDto;
+import com.personal.services.PlanejamentoTreinoService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,24 +14,24 @@ import java.util.List;
 @Tag(name = "Plano de Treino", description = "Endpoints de exemplo")
 @RestController
 @RequestMapping("/v1/workoutplan")
-public class WorkoutPlanController {
+public class PlanejamentoTreinoController {
     @Autowired
-    private WorkoutPlanService service;
+    private PlanejamentoTreinoService service;
 
     @PostMapping
-    public void Create(@RequestBody WorkoutPlanRequestDto dto) {
+    public void Create(@RequestBody PlanejamentoTreinoRequestDto dto) {
         service.create(dto);
     }
 
     @GetMapping
-    public ResponseEntity<List<WorkoutPlanResponseDto>> GetAll() {
+    public ResponseEntity<List<PlanejamentoTreinoResponseDto>> GetAll() {
         return ResponseEntity.ok(service.findAll());
     }
 
     @PutMapping("/{id}")
     public void update(
             @PathVariable Long id,
-            @RequestBody @Valid WorkoutPlanRequestDto dto) {
+            @RequestBody @Valid PlanejamentoTreinoRequestDto dto) {
         service.update(id, dto);
     }
 

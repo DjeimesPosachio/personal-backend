@@ -1,8 +1,8 @@
 package com.personal.controllers;
 
-import com.personal.dtos.request.ExerciseMetricsRequestDto;
-import com.personal.dtos.response.ExerciseMetricsResponseDto;
-import com.personal.services.ExerciseMetricsService;
+import com.personal.dtos.request.MetricasExerciciosRequestDto;
+import com.personal.dtos.response.MetricasExercicioResponseDto;
+import com.personal.services.MetricasExercicioService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -28,21 +28,21 @@ import java.util.List;
 public class ExerciseMetricsController {
 
     @Autowired
-    private ExerciseMetricsService service;
+    private MetricasExercicioService service;
 
     @PostMapping
-    public ResponseEntity<ExerciseMetricsResponseDto> create(@RequestBody @Valid ExerciseMetricsRequestDto dto) {
+    public ResponseEntity<MetricasExercicioResponseDto> create(@RequestBody @Valid MetricasExerciciosRequestDto dto) {
         return ResponseEntity.ok(service.create(dto));
     }
 
     @GetMapping("all")
-    public ResponseEntity<List<ExerciseMetricsResponseDto>> findAll() {
+    public ResponseEntity<List<MetricasExercicioResponseDto>> findAll() {
         return ResponseEntity.ok(service.findAll());
     }
 
     @Async
     @GetMapping("/{id}")
-    public ResponseEntity<ExerciseMetricsResponseDto> findById(@PathVariable Long id) {
+    public ResponseEntity<MetricasExercicioResponseDto> findById(@PathVariable Long id) {
         return ResponseEntity.ok(service.findById(id));
     }
 

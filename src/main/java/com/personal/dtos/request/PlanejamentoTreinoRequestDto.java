@@ -12,9 +12,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class WorkoutPlanRequestDto {
+public class PlanejamentoTreinoRequestDto {
     private LocalDate dataInicialPlano;
     private LocalDate dataFinalPlano;
     private Long userId;
-    private List<TrainingRequestDto> trainings;
+    private List<TreinoRequestDto> treinos;
 }
