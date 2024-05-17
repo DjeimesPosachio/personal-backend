@@ -2,7 +2,7 @@ package com.personal.dtos.response;
 
 import java.time.LocalDate;
 
-import com.personal.entities.PlanejamentoTreinoEntitie;
+import com.personal.entities.PlanejamentoTreinoEntity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,7 +19,7 @@ public class PlanejamentoTreinoResponseDto {
     private LocalDate dataInicialPlano;
     private LocalDate dataFinalPlano;
 
-    public PlanejamentoTreinoResponseDto(PlanejamentoTreinoEntitie plan) {
+    public PlanejamentoTreinoResponseDto(PlanejamentoTreinoEntity plan) {
         this.id = plan.getId();
         this.dataInicialPlano = plan.getDataInicialPlano();
         this.dataFinalPlano = plan.getDataFinalPlano();

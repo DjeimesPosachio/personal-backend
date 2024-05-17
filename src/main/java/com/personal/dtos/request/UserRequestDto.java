@@ -13,8 +13,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UserRequestDto {
     @NotBlank(message = " cannot be blank")
-    private String name;
+    private String nome;
     @NotBlank(message = "Email cannot be blank")
     @Email(message = "Email should be valid")
     private String email;
+    private String password;
 }

@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.personal.dtos.request.MetricasExerciciosRequestDto;
 import com.personal.dtos.response.MetricasExercicioResponseDto;
-import com.personal.entities.ExercicioEntitie;
-import com.personal.entities.MetricasExercicioEntitie;
-import com.personal.entities.TreinoEntitie;
+import com.personal.entities.ExercicioEntity;
+import com.personal.entities.MetricasExercicioEntity;
+import com.personal.entities.TreinoEntity;
 import com.personal.exceptions.EventNotFoundException;
 import com.personal.repositories.MetricasExercicioRepository;
 import com.personal.repositories.ExercicioRepository;
@@ -29,14 +29,14 @@ public class MetricasExercicioService {
     private TreinoRepository trainingRepository;
 
     public MetricasExercicioResponseDto create(MetricasExerciciosRequestDto dto) {
-        Optional<TreinoEntitie> TrainingOptional = trainingRepository.findById(dto.getTreinoId());
-        Optional<ExercicioEntitie> ExerciseOptional = exerciseRepository.findById(dto.getExercicioId());
+        Optional<TreinoEntity> TrainingOptional = trainingRepository.findById(dto.getTreinoId());
+        Optional<ExercicioEntity> ExerciseOptional = exerciseRepository.findById(dto.getExercicioId());
         if (!TrainingOptional.isPresent() || !ExerciseOptional.isPresent()) {
             throw new EventNotFoundException("Nao Encontrado");
         }
-        MetricasExercicioEntitie metrics = new MetricasExercicioEntitie(dto);
-        metrics.setExercicioEntitie(ExerciseOptional.get());
-        metrics.setTreinoEntitie(TrainingOptional.get());
+        MetricasExercicioEntity metrics = new MetricasExercicioEntity(dto);
+        metrics.setExercicioEntity(ExerciseOptional.get());
+        metrics.setTreinoEntity(TrainingOptional.get());
         return new MetricasExercicioResponseDto(repository.save(metrics));
     }
 
@@ -45,12 +45,12 @@ public class MetricasExercicioService {
     }
 
     public MetricasExercicioResponseDto findById(@PathVariable Long id) {
-        Optional<MetricasExercicioEntitie> metrics = repository.findById(id);
+        Optional<MetricasExercicioEntity> metrics = repository.findById(id);
         return new MetricasExercicioResponseDto(metrics.get());
     }
 
     public Long delete(@PathVariable Long id) {
-        Optional<MetricasExercicioEntitie> opexercise = repository.findById(id);
+        Optional<MetricasExercicioEntity> opexercise = repository.findById(id);
         if (!opexercise.isPresent()) {
             throw new EventNotFoundException("Nao Existe");
         }

@@ -1,6 +1,6 @@
 package com.personal.dtos.response;
 
-import com.personal.entities.MetricasExercicioEntitie;
+import com.personal.entities.MetricasExercicioEntity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,7 +20,7 @@ public class MetricasExercicioResponseDto {
 
     private Float durationRest;
 
-    public MetricasExercicioResponseDto(MetricasExercicioEntitie metrics) {
+    public MetricasExercicioResponseDto(MetricasExercicioEntity metrics) {
         this(
                 metrics.getId(),
                 metrics.getSeries(),

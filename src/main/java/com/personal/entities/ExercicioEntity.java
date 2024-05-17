@@ -12,7 +12,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
-public class ExercicioEntitie {
+public class ExercicioEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,7 +28,7 @@ public class ExercicioEntitie {
 
     private String urlGif;
 
-    public ExercicioEntitie(ExercicioRequestDto dto) {
+    public ExercicioEntity(ExercicioRequestDto dto) {
         this.fileName = dto.getName();
         this.nomeExercicio = dto.getNomeExercicio();
         this.series = dto.getSeries();
@@ -36,7 +36,7 @@ public class ExercicioEntitie {
 
     }
 
-    public ExercicioEntitie(String fileName, String nomeExercicio, String urlGif) {
+    public ExercicioEntity(String fileName, String nomeExercicio, String urlGif) {
         this.fileName = fileName;
         this.nomeExercicio = nomeExercicio;
         this.series = (long) 0;

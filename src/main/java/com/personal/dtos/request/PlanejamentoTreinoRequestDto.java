@@ -15,6 +15,6 @@ import lombok.NoArgsConstructor;
 public class PlanejamentoTreinoRequestDto {
     private LocalDate dataInicialPlano;
     private LocalDate dataFinalPlano;
-    private Long userId;
+    private Long alunoId;
     private List<TreinoRequestDto> treinos;
 }

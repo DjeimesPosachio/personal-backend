@@ -2,7 +2,7 @@ package com.personal.services;
 
 import com.personal.dtos.request.ExercicioRequestDto;
 import com.personal.dtos.response.ExercicioResponseDto;
-import com.personal.entities.ExercicioEntitie;
+import com.personal.entities.ExercicioEntity;
 import com.personal.exceptions.EventNotFoundException;
 import com.personal.repositories.ExercicioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +28,7 @@ public class ExercicioService {
             @RequestPart MultipartFile file) {
 
         String url = fileStorageService.SaveGif(file);
-        ExercicioEntitie novo = new ExercicioEntitie(dto);
+        ExercicioEntity novo = new ExercicioEntity(dto);
         novo.setUrlGif(url);
         repository.save(novo);
         return new ExercicioResponseDto(novo);
@@ -46,31 +46,31 @@ public class ExercicioService {
     }
 
     public ExercicioResponseDto findById(@PathVariable Long id) {
-        Optional<ExercicioEntitie> exercise = repository.findById(id);
+        Optional<ExercicioEntity> exercise = repository.findById(id);
         if (exercise.isEmpty()) {
             throw new EventNotFoundException("Nao Existe");
         }
         return new ExercicioResponseDto(exercise.get());
     }
 
-    public ExercicioEntitie recuperarPorId(Long id) {
+    public ExercicioEntity recuperarPorId(Long id) {
         return repository.findById(id).orElseThrow(() -> new RuntimeException("Exercício não encontrado"));
     }
 
     public ExercicioResponseDto update(Long id, ExercicioRequestDto dto) {
-        Optional<ExercicioEntitie> opexercise = repository.findById(id);
+        Optional<ExercicioEntity> opexercise = repository.findById(id);
         if (opexercise.isEmpty()) {
             throw new EventNotFoundException("Nao Existe");
         }
-        ExercicioEntitie updatedExercicioEntitie = opexercise.get();
-        updatedExercicioEntitie.setFileName(dto.getName());
-        updatedExercicioEntitie.setSeries(dto.getSeries());
-        updatedExercicioEntitie.setRepeticoes(dto.getRepeticoes());
-        return new ExercicioResponseDto(repository.save(updatedExercicioEntitie));
+        ExercicioEntity updatedExercicioEntity = opexercise.get();
+        updatedExercicioEntity.setFileName(dto.getName());
+        updatedExercicioEntity.setSeries(dto.getSeries());
+        updatedExercicioEntity.setRepeticoes(dto.getRepeticoes());
+        return new ExercicioResponseDto(repository.save(updatedExercicioEntity));
     }
 
     public Long delete(@PathVariable Long id) {
-        Optional<ExercicioEntitie> opexercise = repository.findById(id);
+        Optional<ExercicioEntity> opexercise = repository.findById(id);
         if (opexercise.isEmpty()) {
             throw new EventNotFoundException("Nao Existe");
         }

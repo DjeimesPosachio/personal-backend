@@ -14,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
-public class TreinoEntitie {
+public class TreinoEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
@@ -23,14 +23,14 @@ public class TreinoEntitie {
 
   private String descricao;
 
-  @OneToMany(mappedBy = "treinoEntitie")
-  private List<MetricasExercicioEntitie> metricasExercicio;
-
   @JoinColumn(name = "planejamentoTreinoId", referencedColumnName = "id")
   @ManyToOne(fetch = FetchType.LAZY)
-  private PlanejamentoTreinoEntitie planejamentoTreinoEntitie;
+  private PlanejamentoTreinoEntity planejamentoTreinoEntity;
 
-  public TreinoEntitie(TreinoRequestDto dto) {
+  @OneToMany(mappedBy = "treinoEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+  private List<MetricasExercicioEntity> metricasExercicio;
+
+  public TreinoEntity(TreinoRequestDto dto) {
     this.treinoAtual = dto.getTreinoAtual();
     this.descricao = dto.getDescricao();
   }

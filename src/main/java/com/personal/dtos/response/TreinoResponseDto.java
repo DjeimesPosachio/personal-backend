@@ -1,6 +1,6 @@
 package com.personal.dtos.response;
 
-import com.personal.entities.TreinoEntitie;
+import com.personal.entities.TreinoEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,12 +21,12 @@ public class TreinoResponseDto {
     private LocalDate date;
     private List<MetricasExercicioResponseDto> exerciseMetrics;
 
-    public TreinoResponseDto(TreinoEntitie treinoEntitie) {
+    public TreinoResponseDto(TreinoEntity treinoEntity) {
 
-        this.id = treinoEntitie.getId();
-        this.treinoAtual = treinoEntitie.getTreinoAtual();
-        this.description = treinoEntitie.getDescricao();
-        this.exerciseMetrics = treinoEntitie.getMetricasExercicio() != null ? treinoEntitie.getMetricasExercicio().stream()
+        this.id = treinoEntity.getId();
+        this.treinoAtual = treinoEntity.getTreinoAtual();
+        this.description = treinoEntity.getDescricao();
+        this.exerciseMetrics = treinoEntity.getMetricasExercicio() != null ? treinoEntity.getMetricasExercicio().stream()
                 .map(MetricasExercicioResponseDto::new)
                 .collect(Collectors.toList())
                 : List.of();

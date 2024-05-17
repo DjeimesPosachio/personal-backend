@@ -16,7 +16,7 @@ import com.personal.dtos.request.PlanejamentoTreinoRequestDto;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
-public class PlanejamentoTreinoEntitie {
+public class PlanejamentoTreinoEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,14 +28,14 @@ public class PlanejamentoTreinoEntitie {
     @Temporal(TemporalType.DATE)
     private LocalDate dataFinalPlano;
 
-    @OneToMany(mappedBy = "planejamentoTreinoEntitie")
-    private List<TreinoEntitie> treinoEntities;
-
     @ManyToOne
-    @JoinColumn(name = "userId")
-    private User user;
+    @JoinColumn(name = "alunoId")
+    private AlunoEntity alunoEntity;
 
-    public PlanejamentoTreinoEntitie(PlanejamentoTreinoRequestDto dto) {
+    @OneToMany(mappedBy = "planejamentoTreinoEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<TreinoEntity> treinoEntities;
+
+    public PlanejamentoTreinoEntity(PlanejamentoTreinoRequestDto dto) {
         this.dataInicialPlano = dto.getDataInicialPlano();
         this.dataFinalPlano = dto.getDataFinalPlano();
     }

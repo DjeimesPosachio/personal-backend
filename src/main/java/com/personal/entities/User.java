@@ -1,17 +1,15 @@
 package com.personal.entities;
 
-import java.util.Collection;
-import java.util.List;
-
+import com.personal.dtos.request.UserRequestDto;
+import com.personal.enums.EUserRole;
+import jakarta.persistence.*;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.personal.dtos.request.UserRequestDto;
-import com.personal.enums.EUserRole;
-
-import jakarta.persistence.*;
-import lombok.*;
+import java.util.Collection;
+import java.util.List;
 
 @Table(name = "usuario")
 @Entity(name = "usuario")
@@ -30,12 +28,10 @@ public class User implements UserDetails {
     private String password;
     private EUserRole role;
 
-    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL)
-    private List<PlanejamentoTreinoEntitie> planejamentoTreinoEntities;
-
     public User(UserRequestDto data) {
-        this.nome = data.getName();
+        this.nome = data.getNome();
         this.email = data.getEmail();
+        this.password = data.getPassword();
     }
 
     public User(String email, String password, EUserRole role) {

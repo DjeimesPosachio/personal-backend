@@ -5,6 +5,8 @@ import com.personal.dtos.request.MetricasExerciciosRequestDto;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Table(name = "metricasExercicio")
 @Entity(name = "metricasExercicio")
 @Builder
@@ -13,7 +15,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
-public class MetricasExercicioEntitie {
+public class MetricasExercicioEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,13 +31,13 @@ public class MetricasExercicioEntitie {
 
     @ManyToOne
     @JoinColumn(name = "exercicioId")
-    private ExercicioEntitie exercicioEntitie;
+    private ExercicioEntity exercicioEntity;
 
     @ManyToOne
     @JoinColumn(name = "trainingId")
-    private TreinoEntitie treinoEntitie;
+    private TreinoEntity treinoEntity;
 
-    public MetricasExercicioEntitie(MetricasExerciciosRequestDto dto) {
+    public MetricasExercicioEntity(MetricasExerciciosRequestDto dto) {
         this.series = dto.getSeries();
         this.repeticoes = dto.getRepeticoes();
         this.tempoDescanso = dto.getTempoDescanso();

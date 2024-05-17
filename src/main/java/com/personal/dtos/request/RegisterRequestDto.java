@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RegisterRequestDto {
-
+    private Long id;
     @NotBlank(message = "Email cannot be blank")
     private String email;
 

@@ -1,6 +1,6 @@
 package com.personal.dtos.response;
 
-import com.personal.entities.ExercicioEntitie;
+import com.personal.entities.ExercicioEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,14 +18,14 @@ public class ExercicioResponseDto {
     private Long sequence;
     private String UrlGif;
 
-    public ExercicioResponseDto(ExercicioEntitie exercicioEntitie) {
+    public ExercicioResponseDto(ExercicioEntity exercicioEntity) {
         this(
-                exercicioEntitie.getId(),
-                exercicioEntitie.getFileName(),
-                exercicioEntitie.getNomeExercicio(),
-                exercicioEntitie.getSeries(),
-                exercicioEntitie.getRepeticoes(),
-                exercicioEntitie.getUrlGif());
+                exercicioEntity.getId(),
+                exercicioEntity.getFileName(),
+                exercicioEntity.getNomeExercicio(),
+                exercicioEntity.getSeries(),
+                exercicioEntity.getRepeticoes(),
+                exercicioEntity.getUrlGif());
     }
 
 }

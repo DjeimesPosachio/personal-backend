@@ -40,7 +40,7 @@ public class AuthenticationService {
     }
 
     public void Register(RegisterRequestDto dto) {
-        if (this.repository.findByEmail(dto.getEmail()).isPresent()) {
+        if (this.repository.buscarPorId(dto.getId()).isPresent()) {
             throw new EventNotFoundException("Mensagem tESTE");
         }
         String encryptedPassword = new BCryptPasswordEncoder().encode(dto.getPassword());

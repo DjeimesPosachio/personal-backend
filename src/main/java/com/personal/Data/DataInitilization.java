@@ -22,7 +22,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.personal.entities.ExercicioEntitie;
+import com.personal.entities.ExercicioEntity;
 import com.personal.entities.User;
 import com.personal.enums.EUserRole;
 import com.personal.repositories.ExercicioRepository;
@@ -84,9 +84,9 @@ public class DataInitilization implements ApplicationListener<ContextRefreshedEv
             usuarioRepository.save(admin);
             // Inserir cinco exercícios
             List<File> files = getAllGifFiles();
-            List<ExercicioEntitie> exercicioEntities = files.stream().map(file -> {
+            List<ExercicioEntity> exercicioEntities = files.stream().map(file -> {
 
-                return new ExercicioEntitie(file.getName(), "Descrição do exercício", "/uploads/gif" + file.getName());
+                return new ExercicioEntity(file.getName(), "Descrição do exercício", "/uploads/gif" + file.getName());
             })
                     .collect(Collectors.toList());
 
@@ -96,8 +96,8 @@ public class DataInitilization implements ApplicationListener<ContextRefreshedEv
 
     }
 
-    private List<ExercicioEntitie> loadExercisesFromJson() {
-        List<ExercicioEntitie> exercicioEntities = new ArrayList<>();
+    private List<ExercicioEntity> loadExercisesFromJson() {
+        List<ExercicioEntity> exercicioEntities = new ArrayList<>();
         JsonNode json;
 
         try (InputStream inputStream = TypeReference.class.getResourceAsStream("/data/exercises.json")) {
@@ -105,8 +105,8 @@ public class DataInitilization implements ApplicationListener<ContextRefreshedEv
             if (json instanceof ArrayNode) {
                 ArrayNode arrayNode = (ArrayNode) json;
                 for (JsonNode exerciseNode : arrayNode) {
-                    ExercicioEntitie exercicioEntitie = objectMapper.treeToValue(exerciseNode, ExercicioEntitie.class);
-                    exercicioEntities.add(exercicioEntitie);
+                    ExercicioEntity exercicioEntity = objectMapper.treeToValue(exerciseNode, ExercicioEntity.class);
+                    exercicioEntities.add(exercicioEntity);
                 }
             }
         } catch (IOException e) {
