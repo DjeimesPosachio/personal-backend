@@ -2,7 +2,6 @@ package com.personal.services;
 
 import com.personal.dtos.request.UserRequestDto;
 import com.personal.dtos.response.UsuarioResponseDto;
-import com.personal.entities.AlunoEntity;
 import com.personal.entities.Email;
 import com.personal.entities.User;
 import com.personal.enums.EUserRole;

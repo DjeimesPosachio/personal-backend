@@ -3,14 +3,10 @@ package com.personal.services;
 import com.personal.dtos.request.MetricasExerciciosRequestDto;
 import com.personal.dtos.request.PlanejamentoTreinoRequestDto;
 import com.personal.dtos.request.TreinoRequestDto;
-import com.personal.dtos.response.AlunoResponseDto;
 import com.personal.dtos.response.PlanejamentoTreinoResponseDto;
-import com.personal.dtos.response.TreinoResponseDto;
-import com.personal.entities.AlunoEntity;
 import com.personal.entities.MetricasExercicioEntity;
 import com.personal.entities.PlanejamentoTreinoEntity;
 import com.personal.entities.TreinoEntity;
-import com.personal.exceptions.EventNotFoundException;
 import com.personal.repositories.PlanejamentoTreinoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +15,6 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional

@@ -1,8 +1,5 @@
 package com.personal.dtos.response;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 import com.personal.entities.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
