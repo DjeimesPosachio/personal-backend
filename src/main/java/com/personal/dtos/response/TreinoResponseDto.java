@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 public class TreinoResponseDto {
     private Long id;
     private Boolean treinoAtual;
-    private String description;
+    private String descricao;
     private LocalDate date;
     private List<MetricasExercicioResponseDto> exerciseMetrics;
 
@@ -25,7 +25,7 @@ public class TreinoResponseDto {
 
         this.id = treinoEntity.getId();
         this.treinoAtual = treinoEntity.getTreinoAtual();
-        this.description = treinoEntity.getDescricao();
+        this.descricao = treinoEntity.getDescricao();
         this.exerciseMetrics = treinoEntity.getMetricasExercicio() != null ? treinoEntity.getMetricasExercicio().stream()
                 .map(MetricasExercicioResponseDto::new)
                 .collect(Collectors.toList())

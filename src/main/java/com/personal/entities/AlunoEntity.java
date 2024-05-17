@@ -9,6 +9,7 @@ import java.time.LocalDate;
 @Entity(name = "aluno")
 @Getter(AccessLevel.PUBLIC)
 @Setter(AccessLevel.PUBLIC)
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")

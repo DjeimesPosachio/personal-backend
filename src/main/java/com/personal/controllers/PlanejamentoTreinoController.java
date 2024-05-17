@@ -28,6 +28,11 @@ public class PlanejamentoTreinoController {
         return ResponseEntity.ok(service.findAll());
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<PlanejamentoTreinoResponseDto> recuperarPeloId(@PathVariable Long id) {
+        return ResponseEntity.ok(service.recuperarPlanejamentoPeloId(id));
+    }
+
     @PutMapping("/{id}")
     public void update(
             @PathVariable Long id,
@@ -36,8 +41,7 @@ public class PlanejamentoTreinoController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
+    public void delete(@PathVariable Long id) {
         service.delete(id);
-        return ResponseEntity.noContent().build();
     }
 }

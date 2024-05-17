@@ -1,4 +1,4 @@
-package com.personal.dtos.request;
+package com.personal.dtos.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,9 +11,9 @@ import java.time.LocalDate;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AlunoDto {
+public class AlunoResponseDto {
+
     private Long id;
     private LocalDate dataNascimento;
-    private Long userId;
+    private UsuarioResponseDto usuario;
 }
-

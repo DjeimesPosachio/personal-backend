@@ -17,15 +17,10 @@ public class UsuarioResponseDto {
     private Long id;
     private String name;
     private String email;
-    private List<PlanejamentoTreinoResponseDto> planejamentoTreino;
 
     public UsuarioResponseDto(User user) {
         this.id = user.getId();
         this.name = user.getNome();
         this.email = user.getEmail();
-        this.planejamentoTreino = user.getPlanejamentoTreinoEntities() != null ? user.getPlanejamentoTreinoEntities().stream()
-                .map(PlanejamentoTreinoResponseDto::new)
-                .collect(Collectors.toList())
-                : List.of();
     }
 }

@@ -30,7 +30,7 @@ public class PlanejamentoTreinoEntity {
 
     @ManyToOne
     @JoinColumn(name = "alunoId")
-    private AlunoEntity alunoEntity;
+    private AlunoEntity aluno;
 
     @OneToMany(mappedBy = "planejamentoTreinoEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<TreinoEntity> treinoEntities;

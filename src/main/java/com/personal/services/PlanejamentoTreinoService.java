@@ -3,7 +3,10 @@ package com.personal.services;
 import com.personal.dtos.request.MetricasExerciciosRequestDto;
 import com.personal.dtos.request.PlanejamentoTreinoRequestDto;
 import com.personal.dtos.request.TreinoRequestDto;
+import com.personal.dtos.response.AlunoResponseDto;
 import com.personal.dtos.response.PlanejamentoTreinoResponseDto;
+import com.personal.dtos.response.TreinoResponseDto;
+import com.personal.entities.AlunoEntity;
 import com.personal.entities.MetricasExercicioEntity;
 import com.personal.entities.PlanejamentoTreinoEntity;
 import com.personal.entities.TreinoEntity;
@@ -46,34 +49,32 @@ public class PlanejamentoTreinoService {
         return repository.findAll().stream().map(PlanejamentoTreinoResponseDto::new).toList();
     }
 
-    public PlanejamentoTreinoResponseDto findById(Long id) {
-        Optional<PlanejamentoTreinoEntity> Training = repository.findById(id);
-        return new PlanejamentoTreinoResponseDto(Training.get());
-    }
-
-    public PlanejamentoTreinoEntity recuperarPorId(Long id) {
+    public PlanejamentoTreinoEntity findById(Long id) {
         return repository.findById(id).orElseThrow(() -> new RuntimeException("Planejamento não encontrado"));
     }
 
+
+    public PlanejamentoTreinoResponseDto recuperarPlanejamentoPeloId(Long id) {
+        PlanejamentoTreinoEntity planejamento = findById(id);
+
+        return new PlanejamentoTreinoResponseDto(planejamento);
+    }
+
+
     public void update(Long id, PlanejamentoTreinoRequestDto dto) {
-        PlanejamentoTreinoEntity planejamentoTreinoEntity = recuperarPorId(id);
+        PlanejamentoTreinoEntity planejamentoTreinoEntity = findById(id);
         planejamentoTreinoEntity.setDataInicialPlano(dto.getDataInicialPlano());
         planejamentoTreinoEntity.setDataFinalPlano(dto.getDataFinalPlano());
-        planejamentoTreinoEntity.setUser(userService.recuperarPorId(dto.getUserId()));
+        planejamentoTreinoEntity.setAluno(alunoService.recuperarPorId(dto.getAlunoId()));
         buildTrainings(planejamentoTreinoEntity, dto.getTreinos());
         repository.save(planejamentoTreinoEntity);
     }
 
-    public Long delete(@PathVariable Long id) {
+    public void delete(@PathVariable Long id) {
 
-        Optional<PlanejamentoTreinoEntity> opexercise = repository.findById(id);
-        if (opexercise.isEmpty()) {
-            throw new EventNotFoundException("Nao Existe");
-        }
-        repository.delete(opexercise.get());
-
-        return id;
+        repository.deleteById(id);
     }
+
 
     private void buildTrainings(PlanejamentoTreinoEntity planejamentoTreinoEntity, List<TreinoRequestDto> treinos) {
 
@@ -115,5 +116,19 @@ public class PlanejamentoTreinoService {
 
         }
 
+    }
+
+
+    public PlanejamentoTreinoResponseDto convertToDto(PlanejamentoTreinoEntity planejamentoTreino) {
+        return PlanejamentoTreinoResponseDto.builder()
+                .id(planejamentoTreino.getId())
+                .dataInicialPlano(planejamentoTreino.getDataInicialPlano())
+                .dataFinalPlano(planejamentoTreino.getDataFinalPlano())
+//                .treinos(planejamentoTreino.getTreinoEntities().stream().map(treinoEntity -> {
+//                    TreinoResponseDto.builder()
+//                            .de
+//                            .build()
+//                }))
+                .build();
     }
 }

@@ -1,8 +1,11 @@
 package com.personal.entities;
 
 import com.personal.dtos.request.MetricasExerciciosRequestDto;
+
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.List;
 
 @Table(name = "metricasExercicio")
 @Entity(name = "metricasExercicio")

@@ -2,13 +2,15 @@ package com.personal.services;
 
 import com.personal.dtos.request.UserRequestDto;
 import com.personal.dtos.response.UsuarioResponseDto;
+import com.personal.entities.AlunoEntity;
 import com.personal.entities.Email;
 import com.personal.entities.User;
 import com.personal.enums.EUserRole;
 import com.personal.exceptions.EventNotFoundException;
 import com.personal.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -25,8 +27,8 @@ public class UserService {
 
     public UsuarioResponseDto create(
             UserRequestDto dto) {
-        Optional<UserDetails> opuser = repository.findByEmail(dto.getEmail());
-        if (opuser.isPresent()) {
+        boolean emailExistente = repository.existsByEmail(dto.getEmail());
+        if (emailExistente) {
             throw new EventNotFoundException("Email ja existe");
         }
         User user = new User(dto);
@@ -68,12 +70,29 @@ public class UserService {
         return new UsuarioResponseDto(updatedTraining);
     }
 
-    public Long delete(@PathVariable Long id) {
+    public void delete(@PathVariable Long id) {
         Optional<User> opexercise = repository.findById(id);
         if (opexercise.isEmpty()) {
             throw new EventNotFoundException("Nao Existe");
         }
         repository.delete(opexercise.get());
-        return id;
+    }
+
+    public Page<UsuarioResponseDto> buscarUsuarios(Pageable pageable) {
+
+        Page<User> usuarios = repository.findAll(pageable);
+
+
+        return usuarios.map(this::convertToDto);
+
+    }
+
+    // TODO colocar num converter ou algo do tipo
+    public UsuarioResponseDto convertToDto(User user) {
+        return UsuarioResponseDto.builder()
+                .id(user.getId())
+                .email(user.getEmail())
+                .name(user.getNome())
+                .build();
     }
 }
