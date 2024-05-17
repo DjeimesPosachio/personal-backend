@@ -48,13 +48,11 @@ public class PlanejamentoTreinoService {
         return repository.findById(id).orElseThrow(() -> new RuntimeException("Planejamento não encontrado"));
     }
 
-
     public PlanejamentoTreinoResponseDto recuperarPlanejamentoPeloId(Long id) {
         PlanejamentoTreinoEntity planejamento = findById(id);
 
         return new PlanejamentoTreinoResponseDto(planejamento);
     }
-
 
     public void update(Long id, PlanejamentoTreinoRequestDto dto) {
         PlanejamentoTreinoEntity planejamentoTreinoEntity = findById(id);
@@ -66,7 +64,6 @@ public class PlanejamentoTreinoService {
     }
 
     public void delete(@PathVariable Long id) {
-
         repository.deleteById(id);
     }
 
@@ -74,7 +71,6 @@ public class PlanejamentoTreinoService {
     private void buildTrainings(PlanejamentoTreinoEntity planejamentoTreinoEntity, List<TreinoRequestDto> treinos) {
 
         if (!CollectionUtils.isEmpty(treinos)) {
-
             List<TreinoEntity> treinoEntities = treinos.stream().map(treino -> {
                 TreinoEntity treinoItem = TreinoEntity.builder()
                         .planejamentoTreinoEntity(planejamentoTreinoEntity)
@@ -83,20 +79,15 @@ public class PlanejamentoTreinoService {
                         .build();
 
                 buildExerciseMetrics(treinoItem, treino.getMetricasExercicios());
-
                 return treinoItem;
             }).toList();
-
             planejamentoTreinoEntity.setTreinoEntities(treinoEntities);
-
         }
-
     }
 
     private void buildExerciseMetrics(TreinoEntity treinoEntitie, List<MetricasExerciciosRequestDto> metricasExercicio) {
 
         if (!CollectionUtils.isEmpty(metricasExercicio)) {
-
             List<MetricasExercicioEntity> metricas = metricasExercicio.stream().map(metrica -> MetricasExercicioEntity.builder()
                     .treinoEntity(treinoEntitie)
                     .id(metrica.getId() != null ? metrica.getId() : null)
@@ -106,13 +97,9 @@ public class PlanejamentoTreinoService {
                     .observacao((metrica.getObservacao()))
                     .exercicioEntity(exercicioService.recuperarPorId(metrica.getExercicioId()))
                     .build()).toList();
-
             treinoEntitie.setMetricasExercicio(metricas);
-
         }
-
     }
-
 
     public PlanejamentoTreinoResponseDto convertToDto(PlanejamentoTreinoEntity planejamentoTreino) {
         return PlanejamentoTreinoResponseDto.builder()

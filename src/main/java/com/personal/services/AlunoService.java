@@ -36,11 +36,8 @@ public class AlunoService {
     }
 
     public void editarAluno(AlunoDto alunoDto) {
-
         AlunoEntity aluno = recuperarPorId(alunoDto.getId());
-
         aluno.setDataNascimento(alunoDto.getDataNascimento());
-
         alunoRepository.save(aluno);
     }
 
@@ -50,20 +47,14 @@ public class AlunoService {
     }
 
     public AlunoResponseDto recuperarAlunoPeloId(Long id) {
-
         AlunoEntity aluno = recuperarPorId(id);
-
         return convertToDto(aluno);
     }
 
 
     public Page<AlunoResponseDto> buscarAlunos(Pageable pageable) {
-
         Page<AlunoEntity> alunos = alunoRepository.findAll(pageable);
-
-
         return alunos.map(this::convertToDto);
-
     }
 
     // TODO colocar num converter ou algo do tipo
@@ -73,6 +64,4 @@ public class AlunoService {
                 .usuario(userService.convertToDto(aluno.getUser()))
                 .build();
     }
-
 }
-

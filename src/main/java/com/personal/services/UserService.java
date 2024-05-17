@@ -78,12 +78,9 @@ public class UserService {
     }
 
     public Page<UsuarioResponseDto> buscarUsuarios(Pageable pageable) {
-
         Page<User> usuarios = repository.findAll(pageable);
 
-
         return usuarios.map(this::convertToDto);
-
     }
 
     // TODO colocar num converter ou algo do tipo
