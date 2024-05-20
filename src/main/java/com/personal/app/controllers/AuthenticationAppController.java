@@ -3,7 +3,6 @@ package com.personal.app.controllers;
 import com.personal.app.services.AutheticationAppService;
 import com.personal.dtos.request.AuthenticationRequestDto;
 import com.personal.dtos.response.LoginResponseDto;
-import com.personal.services.AuthenticationService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
