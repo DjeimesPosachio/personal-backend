@@ -1,22 +1,18 @@
-package com.personal.services;
+package com.personal.app.services;
 
+import com.personal.dtos.request.AuthenticationRequestDto;
+import com.personal.dtos.response.LoginResponseDto;
 import com.personal.dtos.response.UsuarioResponseDto;
+import com.personal.entities.User;
+import com.personal.repositories.UsuarioRepository;
+import com.personal.security.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.personal.dtos.request.AuthenticationRequestDto;
-import com.personal.dtos.request.RegisterRequestDto;
-import com.personal.dtos.response.LoginResponseDto;
-import com.personal.entities.User;
-import com.personal.exceptions.EventNotFoundException;
-import com.personal.repositories.UsuarioRepository;
-import com.personal.security.TokenService;
-
 @Service
-public class AuthenticationService {
+public class AutheticationAppService {
 
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -39,12 +35,4 @@ public class AuthenticationService {
         return new LoginResponseDto(token, userResponseDto);
     }
 
-    public void Register(RegisterRequestDto dto) {
-        if (this.repository.findByEmail(dto.getEmail()).isPresent()) {
-            throw new EventNotFoundException("Mensagem tESTE");
-        }
-        String encryptedPassword = new BCryptPasswordEncoder().encode(dto.getPassword());
-        User newUser = new User(dto.getEmail(), encryptedPassword, dto.getRole());
-        this.repository.save(newUser);
-    }
 }

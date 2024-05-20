@@ -5,11 +5,15 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class LoginResponseDto {
-    private String token;
-    private  UsuarioResponseDto usuario;
+public class AlunoResponseDto {
+
+    private Long id;
+    private LocalDate dataNascimento;
+    private UsuarioResponseDto usuario;
 }

@@ -1,14 +1,15 @@
 package com.personal.services;
 
 import com.personal.dtos.request.UserRequestDto;
-import com.personal.dtos.response.UserResponseDto;
+import com.personal.dtos.response.UsuarioResponseDto;
 import com.personal.entities.Email;
 import com.personal.entities.User;
 import com.personal.enums.EUserRole;
 import com.personal.exceptions.EventNotFoundException;
-import com.personal.repositories.IUserRepository;
+import com.personal.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -18,15 +19,15 @@ import java.util.Optional;
 @Service
 public class UserService {
     @Autowired
-    private IUserRepository repository;
+    private UsuarioRepository repository;
 
     @Autowired
     private EmailService emailService;
 
-    public UserResponseDto create(
+    public UsuarioResponseDto create(
             UserRequestDto dto) {
-        Optional<UserDetails> opuser = repository.findByEmail(dto.getEmail());
-        if (opuser.isPresent()) {
+        boolean emailExistente = repository.existsByEmail(dto.getEmail());
+        if (emailExistente) {
             throw new EventNotFoundException("Email ja existe");
         }
         User user = new User(dto);
@@ -40,24 +41,24 @@ public class UserService {
         email.setEmailTo(novouser.getEmail());
         email.setSubject("SubTitutlo");
         emailService.sendEmail(email);
-        return new UserResponseDto(novouser);
+        return new UsuarioResponseDto(novouser);
     }
 
-    public List<UserResponseDto> findAll() {
-        return repository.findAll().stream().map(UserResponseDto::new).toList();
+    public List<UsuarioResponseDto> findAll() {
+        return repository.findAll().stream().map(UsuarioResponseDto::new).toList();
     }
 
-    public UserResponseDto findById(@PathVariable Long id) {
+    public UsuarioResponseDto findById(@PathVariable Long id) {
         Optional<User> user = repository.findById(id);
-        return new UserResponseDto(user.get());
+        return new UsuarioResponseDto(user.get());
     }
 
     public User recuperarPorId(Long id) {
         return repository.findById(id).orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
     }
 
-    public UserResponseDto update(@PathVariable Long id,
-            UserRequestDto newData) {
+    public UsuarioResponseDto update(@PathVariable Long id,
+                                     UserRequestDto newData) {
         Optional<User> user = repository.findById(id);
         if (user.isEmpty()) {
             throw new Error("nao existe");
@@ -65,15 +66,29 @@ public class UserService {
         User teste = user.get();
 
         User updatedTraining = repository.save(teste);
-        return new UserResponseDto(updatedTraining);
+        return new UsuarioResponseDto(updatedTraining);
     }
 
-    public Long delete(@PathVariable Long id) {
+    public void delete(@PathVariable Long id) {
         Optional<User> opexercise = repository.findById(id);
         if (opexercise.isEmpty()) {
             throw new EventNotFoundException("Nao Existe");
         }
         repository.delete(opexercise.get());
-        return id;
+    }
+
+    public Page<UsuarioResponseDto> buscarUsuarios(Pageable pageable) {
+        Page<User> usuarios = repository.findAll(pageable);
+
+        return usuarios.map(this::convertToDto);
+    }
+
+    // TODO colocar num converter ou algo do tipo
+    public UsuarioResponseDto convertToDto(User user) {
+        return UsuarioResponseDto.builder()
+                .id(user.getId())
+                .email(user.getEmail())
+                .name(user.getNome())
+                .build();
     }
 }

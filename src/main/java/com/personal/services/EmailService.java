@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 import com.personal.dtos.response.EmailResponseDto;
 import com.personal.entities.Email;
 import com.personal.enums.EStatusEmail;
-import com.personal.repositories.IEmailRepository;
+import com.personal.repositories.EmailRepository;
 
 import jakarta.mail.internet.MimeMessage;
 import jakarta.transaction.Transactional;
@@ -25,7 +25,7 @@ import org.thymeleaf.context.Context;
 @Service
 public class EmailService {
     @Autowired
-    IEmailRepository emailRepository;
+    EmailRepository emailRepository;
 
     @Autowired
     private JavaMailSender emailSender;

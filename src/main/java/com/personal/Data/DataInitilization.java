@@ -3,7 +3,6 @@ package com.personal.Data;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -15,23 +14,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-import org.springframework.util.DigestUtils;
-import org.springframework.util.ResourceUtils;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.personal.config.FileStorageProperties;
-import com.personal.entities.Exercise;
+import com.personal.entities.ExercicioEntity;
 import com.personal.entities.User;
 import com.personal.enums.EUserRole;
-import com.personal.repositories.IExerciseRepository;
-import com.personal.repositories.IUserRepository;
+import com.personal.repositories.ExercicioRepository;
+import com.personal.repositories.UsuarioRepository;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -43,10 +38,10 @@ public class DataInitilization implements ApplicationListener<ContextRefreshedEv
     public static final String EMAIL_PADRAO = "admin@admin.com.br";
     private final ObjectMapper objectMapper;
     @Autowired
-    private IUserRepository usuarioRepository;
+    private UsuarioRepository usuarioRepository;
 
     @Autowired
-    private IExerciseRepository ExerciseRepository;
+    private ExercicioRepository ExerciseRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -82,27 +77,27 @@ public class DataInitilization implements ApplicationListener<ContextRefreshedEv
         if (!user.isPresent()) {
             // Se não existir, cria um novo usuário administrador
             User admin = new User();
-            admin.setName("admin");
+            admin.setNome("admin");
             admin.setEmail(EMAIL_PADRAO);
             admin.setPassword(passwordEncoder.encode("admin1234"));
             admin.setRole(EUserRole.ADMIN);
             usuarioRepository.save(admin);
             // Inserir cinco exercícios
             List<File> files = getAllGifFiles();
-            List<Exercise> exercises = files.stream().map(file -> {
+            List<ExercicioEntity> exercicioEntities = files.stream().map(file -> {
 
-                return new Exercise(file.getName(), "Descrição do exercício", "/uploads/gif" + file.getName());
+                return new ExercicioEntity(file.getName(), "Descrição do exercício", "/uploads/gif" + file.getName());
             })
                     .collect(Collectors.toList());
 
-            ExerciseRepository.saveAll(exercises);
+            ExerciseRepository.saveAll(exercicioEntities);
 
         }
 
     }
 
-    private List<Exercise> loadExercisesFromJson() {
-        List<Exercise> exercises = new ArrayList<>();
+    private List<ExercicioEntity> loadExercisesFromJson() {
+        List<ExercicioEntity> exercicioEntities = new ArrayList<>();
         JsonNode json;
 
         try (InputStream inputStream = TypeReference.class.getResourceAsStream("/data/exercises.json")) {
@@ -110,14 +105,14 @@ public class DataInitilization implements ApplicationListener<ContextRefreshedEv
             if (json instanceof ArrayNode) {
                 ArrayNode arrayNode = (ArrayNode) json;
                 for (JsonNode exerciseNode : arrayNode) {
-                    Exercise exercise = objectMapper.treeToValue(exerciseNode, Exercise.class);
-                    exercises.add(exercise);
+                    ExercicioEntity exercicioEntity = objectMapper.treeToValue(exerciseNode, ExercicioEntity.class);
+                    exercicioEntities.add(exercicioEntity);
                 }
             }
         } catch (IOException e) {
             throw new RuntimeException("Failed to read JSON data", e);
         }
-        return exercises;
+        return exercicioEntities;
     }
 
     public List<File> getAllGifFiles() {
