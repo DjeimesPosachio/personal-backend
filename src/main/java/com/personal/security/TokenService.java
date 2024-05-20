@@ -1,4 +1,4 @@
-package com.personal.segurity;
+package com.personal.security;
 
 import java.time.Instant;
 import java.time.LocalDateTime;

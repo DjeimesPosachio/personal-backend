@@ -1,4 +1,4 @@
-package com.personal.segurity;
+package com.personal.security;
 
 import java.io.IOException;
 import java.util.Optional;

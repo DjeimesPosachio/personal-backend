@@ -21,6 +21,8 @@ public class TreinoEntity {
 
   private Boolean treinoAtual;
 
+  private String sequenciaTreino;
+
   private String descricao;
 
   @JoinColumn(name = "planejamentoTreinoId", referencedColumnName = "id")

@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Tag(name = "Plano de Treino", description = "Endpoints de exemplo")
+@Tag(name = "Plano de Treino", description = "Plenajamento de treinos")
 @RestController
-@RequestMapping("/v1/workoutplan")
+@RequestMapping("/v1/planejamento-treino")
 public class PlanejamentoTreinoController {
     @Autowired
     private PlanejamentoTreinoService service;

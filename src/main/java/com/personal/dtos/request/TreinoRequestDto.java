@@ -15,5 +15,6 @@ public class TreinoRequestDto {
     private Long id;
     private Boolean treinoAtual;
     private String descricao;
+    private String sequenciaTreino;
     private List<MetricasExerciciosRequestDto> metricasExercicios;
 }

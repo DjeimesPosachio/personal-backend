@@ -14,11 +14,11 @@ import lombok.NoArgsConstructor;
 public class MetricasExercicioResponseDto {
     private Long id;
 
-    private Long sets;
+    private Long series;
 
-    private Long sequence;
+    private Long repeticoes;
 
-    private Float durationRest;
+    private Float tempoDescanso;
 
     public MetricasExercicioResponseDto(MetricasExercicioEntity metrics) {
         this(
