@@ -1,7 +1,6 @@
 package com.personal.dtos.response;
 
 import com.personal.entities.PlanejamentoDietaEntity;
-import com.personal.entities.PlanejamentoTreinoEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

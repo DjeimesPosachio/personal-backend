@@ -1,11 +1,8 @@
 package com.personal.controllers;
 
 import com.personal.dtos.request.PlanejamentoDietaRequestDto;
-import com.personal.dtos.request.PlanejamentoTreinoRequestDto;
 import com.personal.dtos.response.PlanejamentoDietaResponseDto;
-import com.personal.dtos.response.PlanejamentoTreinoResponseDto;
 import com.personal.services.PlanejamentoDietaService;
-import com.personal.services.PlanejamentoTreinoService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

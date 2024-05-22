@@ -1,7 +1,6 @@
 package com.personal.entities;
 
 import com.personal.dtos.request.PlanejamentoDietaRequestDto;
-import com.personal.dtos.request.PlanejamentoTreinoRequestDto;
 import jakarta.persistence.*;
 import lombok.*;
 

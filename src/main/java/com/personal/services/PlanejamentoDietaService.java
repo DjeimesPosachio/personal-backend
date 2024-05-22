@@ -1,9 +1,7 @@
 package com.personal.services;
 
 import com.personal.dtos.request.PlanejamentoDietaRequestDto;
-import com.personal.dtos.request.PlanejamentoTreinoRequestDto;
 import com.personal.dtos.response.PlanejamentoDietaResponseDto;
-import com.personal.dtos.response.PlanejamentoTreinoResponseDto;
 import com.personal.entities.PlanejamentoDietaEntity;
 import com.personal.entities.RefeicaoEntity;
 import com.personal.repositories.PlanejamentoDietaRepository;

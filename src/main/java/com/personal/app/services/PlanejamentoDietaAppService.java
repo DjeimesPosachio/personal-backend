@@ -1,13 +1,10 @@
 package com.personal.app.services;
 
 import com.personal.dtos.response.PlanejamentoDietaResponseDto;
-import com.personal.dtos.response.PlanejamentoTreinoResponseDto;
 import com.personal.entities.AlunoEntity;
 import com.personal.entities.PlanejamentoDietaEntity;
-import com.personal.entities.PlanejamentoTreinoEntity;
 import com.personal.repositories.AlunoRepository;
 import com.personal.repositories.PlanejamentoDietaRepository;
-import com.personal.repositories.PlanejamentoTreinoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
