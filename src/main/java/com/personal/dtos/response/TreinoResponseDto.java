@@ -18,7 +18,7 @@ public class TreinoResponseDto {
     private Boolean treinoAtual;
     private String descricao;
     private String sequenciaTreino;
-    private List<MetricasExercicioResponseDto> exerciseMetrics;
+    private List<MetricasExercicioResponseDto> metricasExercicio;
 
     public TreinoResponseDto(TreinoEntity treinoEntity) {
 
@@ -26,7 +26,7 @@ public class TreinoResponseDto {
         this.treinoAtual = treinoEntity.getTreinoAtual();
         this.descricao = treinoEntity.getDescricao();
         this.sequenciaTreino = treinoEntity.getSequenciaTreino();
-        this.exerciseMetrics = treinoEntity.getMetricasExercicio() != null ? treinoEntity.getMetricasExercicio().stream()
+        this.metricasExercicio = treinoEntity.getMetricasExercicio() != null ? treinoEntity.getMetricasExercicio().stream()
                 .map(MetricasExercicioResponseDto::new)
                 .collect(Collectors.toList())
                 : List.of();

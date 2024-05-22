@@ -18,11 +18,8 @@ public class TreinoEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-
   private Boolean treinoAtual;
-
   private String sequenciaTreino;
-
   private String descricao;
 
   @JoinColumn(name = "planejamentoTreinoId", referencedColumnName = "id")

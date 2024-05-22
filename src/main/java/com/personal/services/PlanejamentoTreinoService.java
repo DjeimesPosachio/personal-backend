@@ -37,6 +37,7 @@ public class PlanejamentoTreinoService {
 
         buildTrainings(planejamentoTreinoEntity, dto.getTreinos());
 
+        // TODO algo errado que ao ter um @Query da problema no salvar, se quiser salvar comentar o miolo do repository
         repository.save(planejamentoTreinoEntity);
     }
 
@@ -101,16 +102,4 @@ public class PlanejamentoTreinoService {
         }
     }
 
-    public PlanejamentoTreinoResponseDto convertToDto(PlanejamentoTreinoEntity planejamentoTreino) {
-        return PlanejamentoTreinoResponseDto.builder()
-                .id(planejamentoTreino.getId())
-                .dataInicialPlano(planejamentoTreino.getDataInicialPlano())
-                .dataFinalPlano(planejamentoTreino.getDataFinalPlano())
-//                .treinos(planejamentoTreino.getTreinoEntities().stream().map(treinoEntity -> {
-//                    TreinoResponseDto.builder()
-//                            .de
-//                            .build()
-//                }))
-                .build();
-    }
 }
