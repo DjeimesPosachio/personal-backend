@@ -15,5 +15,4 @@ public interface PlanejamentoTreinoRepository extends JpaRepository<Planejamento
             "AND p.aluno.id = :idAluno " +
             "ORDER BY p.dataInicialPlano DESC")
     List<PlanejamentoTreinoEntity> findLastByDataAtualAndAlunoId(Long idAluno);
-
 }

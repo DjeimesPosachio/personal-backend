@@ -1,4 +1,4 @@
-package com.personal.Data;
+package com.personal.data;
 
 import java.io.File;
 import java.io.IOException;
