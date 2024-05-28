@@ -20,10 +20,9 @@ public class RefeicaoResponseDto {
     private TipoRefeicao tipoRefeicao;
 
     public RefeicaoResponseDto(RefeicaoEntity refeicao) {
-
         this.id = refeicao.getId();
         this.descricao = refeicao.getDescricao();
-        this.descricao = refeicao.getDescricao();
         this.horaRefeicao = refeicao.getHoraRefeicao();
+        this.tipoRefeicao = refeicao.getTipoRefeicao();
     }
 }

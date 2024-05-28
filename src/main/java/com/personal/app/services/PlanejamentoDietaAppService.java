@@ -5,6 +5,7 @@ import com.personal.entities.AlunoEntity;
 import com.personal.entities.PlanejamentoDietaEntity;
 import com.personal.repositories.AlunoRepository;
 import com.personal.repositories.PlanejamentoDietaRepository;
+import com.personal.security.UsuarioLogado;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,12 +24,10 @@ public class PlanejamentoDietaAppService {
     private AlunoRepository alunoRepository;
     public PlanejamentoDietaResponseDto recuperarPlanejamentoDietaUsuarioLogado(){
 
-        // TODO ARRANJAR JEITO DE OBTER O USUARIO LOGADO
-        Optional<AlunoEntity> aluno = alunoRepository.findByUserId(2L);
+        Optional<AlunoEntity> aluno = alunoRepository.findByUserId(UsuarioLogado.getIdUsuarioLogado());
 
         if(aluno.isEmpty())
             throw new RuntimeException("Erro ao recuperar planejamento da dieta. Aluno não encontrado");
-
 
         List<PlanejamentoDietaEntity> dieta = planejamentoDietaRepository.findLastByDataAtualAndAlunoId(aluno.get().getId());
 
@@ -36,8 +35,5 @@ public class PlanejamentoDietaAppService {
             throw new RuntimeException("Sem dieta para o aluno.");
 
         return new PlanejamentoDietaResponseDto(dieta.get(0));
-
-
-
     }
 }

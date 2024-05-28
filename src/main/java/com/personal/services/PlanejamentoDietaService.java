@@ -38,8 +38,6 @@ public class PlanejamentoDietaService {
                         .build()).collect(Collectors.toList())
         );
 
-
-        // TODO algo errado que ao ter um @Query da problema no salvar, se quiser salvar comentar o miolo do repository
         repository.save(dieta);
     }
 
