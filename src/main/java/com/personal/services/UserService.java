@@ -21,9 +21,6 @@ public class UserService {
     @Autowired
     private UsuarioRepository repository;
 
-    @Autowired
-    private EmailService emailService;
-
     public UsuarioResponseDto create(
             UserRequestDto dto) {
         boolean emailExistente = repository.existsByEmail(dto.getEmail());
@@ -40,7 +37,6 @@ public class UserService {
         email.setEmailFrom("adao01eduardo@gmail.com");
         email.setEmailTo(novouser.getEmail());
         email.setSubject("SubTitutlo");
-        emailService.sendEmail(email);
         return new UsuarioResponseDto(novouser);
     }
 
