@@ -79,14 +79,14 @@ public class DataInitilization implements ApplicationListener<ContextRefreshedEv
             User admin = new User();
             admin.setNome("admin");
             admin.setEmail(EMAIL_PADRAO);
-            admin.setPassword(passwordEncoder.encode("admin1234"));
+            admin.setSenha(passwordEncoder.encode("admin1234"));
             admin.setRole(EUserRole.ADMIN);
             usuarioRepository.save(admin);
             // Inserir cinco exercícios
             List<File> files = getAllGifFiles();
             List<ExercicioEntity> exercicioEntities = files.stream().map(file -> {
 
-                return new ExercicioEntity(file.getName(), "Descrição do exercício", "/uploads/gif" + file.getName());
+                return new ExercicioEntity("Descrição do exercício");
             })
                     .collect(Collectors.toList());
 

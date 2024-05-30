@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalTime;
+import java.util.List;
 
 @Table(name = "refeicao")
 @Entity(name = "refeicao")
@@ -20,16 +21,20 @@ public class RefeicaoEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "descricao")
+    @Column(name = "descricao", length = 200, nullable = false)
     private String descricao;
 
-    @Column(name = "tipoRefeicao")
+    @Column(name = "tipo_refeicao", length = 40, nullable = false)
+    @Enumerated(EnumType.STRING)
     private TipoRefeicao tipoRefeicao;
 
-    @Column(name = "horaRefeicao")
+    @Column(name = "hora_refeicao")
     private LocalTime horaRefeicao;
 
-    @JoinColumn(name = "planejamentoDietaId", referencedColumnName = "id")
+    @OneToMany(mappedBy = "refeicao", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ItemRefeicaoEntity> itensRefeicao;
+
+    @JoinColumn(name = "planejamento_dieta_id", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
     private PlanejamentoDietaEntity planejamentoDieta;
 }

@@ -15,6 +15,7 @@ import java.util.List;
 @Entity(name = "usuario")
 @Getter(AccessLevel.PUBLIC)
 @Setter(AccessLevel.PUBLIC)
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
@@ -22,21 +23,29 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "nome", length = 200, nullable = false)
     private String nome;
-    @Column(unique = true, nullable = false)
+
+    @Column(name = "email", length = 200, unique = true, nullable = false)
     private String email;
-    private String password;
+
+    @Column(name = "senha", nullable = false)
+    private String senha;
+
+    @Column(name = "role", nullable = false)
+    @Enumerated(EnumType.STRING)
     private EUserRole role;
 
     public User(UserRequestDto data) {
         this.nome = data.getNome();
         this.email = data.getEmail();
-        this.password = data.getPassword();
+        this.senha = data.getSenha();
     }
 
     public User(String email, String password, EUserRole role) {
         this.email = email;
-        this.password = password;
+        this.senha = password;
         this.role = role;
     }
 
@@ -49,8 +58,13 @@ public class User implements UserDetails {
     }
 
     @Override
+    public String getPassword() {
+        return senha;
+    }
+
+    @Override
     public String getUsername() {
-        return email;
+        return nome;
     }
 
     @Override

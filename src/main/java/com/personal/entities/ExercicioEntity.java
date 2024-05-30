@@ -18,29 +18,26 @@ public class ExercicioEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String fileName;
-
+    @Column(name = "nome_exercicio", length = 300, nullable = false)
     private String nomeExercicio;
 
+    @Column(name = "series")
     private Long series;
 
+    @Column(name = "repeticoes")
     private Long repeticoes;
 
-    private String urlGif;
-
     public ExercicioEntity(ExercicioRequestDto dto) {
-        this.fileName = dto.getName();
+
         this.nomeExercicio = dto.getNomeExercicio();
         this.series = dto.getSeries();
         this.repeticoes = dto.getRepeticoes();
 
     }
 
-    public ExercicioEntity(String fileName, String nomeExercicio, String urlGif) {
-        this.fileName = fileName;
+    public ExercicioEntity(String nomeExercicio) {
         this.nomeExercicio = nomeExercicio;
-        this.series = (long) 0;
-        this.repeticoes = (long) 0;
-        this.urlGif = urlGif;
+        this.series = 0L;
+        this.repeticoes = 0L;
     }
 }

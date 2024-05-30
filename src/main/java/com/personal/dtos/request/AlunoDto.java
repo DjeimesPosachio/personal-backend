@@ -13,7 +13,8 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class AlunoDto {
     private Long id;
+    private String nome;
     private LocalDate dataNascimento;
-    private Long userId;
+    private Long usuarioId;
 }
 

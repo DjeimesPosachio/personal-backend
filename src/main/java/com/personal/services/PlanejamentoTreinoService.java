@@ -7,6 +7,7 @@ import com.personal.dtos.response.PlanejamentoTreinoResponseDto;
 import com.personal.entities.MetricasExercicioEntity;
 import com.personal.entities.PlanejamentoTreinoEntity;
 import com.personal.entities.TreinoEntity;
+import com.personal.exceptions.EventNotFoundException;
 import com.personal.repositories.PlanejamentoTreinoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,12 +33,11 @@ public class PlanejamentoTreinoService {
         PlanejamentoTreinoEntity planejamentoTreinoEntity = PlanejamentoTreinoEntity.builder()
                 .dataInicialPlano(dto.getDataInicialPlano())
                 .dataFinalPlano(dto.getDataFinalPlano())
-                .aluno(alunoService.recuperarPorId(dto.getAlunoId()))
+                .aluno(alunoService.findById(dto.getAlunoId()))
                 .build();
 
         buildTrainings(planejamentoTreinoEntity, dto.getTreinos());
 
-        // TODO algo errado que ao ter um @Query da problema no salvar, se quiser salvar comentar o miolo do repository
         repository.save(planejamentoTreinoEntity);
     }
 
@@ -46,7 +46,7 @@ public class PlanejamentoTreinoService {
     }
 
     public PlanejamentoTreinoEntity findById(Long id) {
-        return repository.findById(id).orElseThrow(() -> new RuntimeException("Planejamento não encontrado"));
+        return repository.findById(id).orElseThrow(() -> new EventNotFoundException("Planejamento não encontrado"));
     }
 
     public PlanejamentoTreinoResponseDto recuperarPlanejamentoPeloId(Long id) {
@@ -59,7 +59,7 @@ public class PlanejamentoTreinoService {
         PlanejamentoTreinoEntity planejamentoTreinoEntity = findById(id);
         planejamentoTreinoEntity.setDataInicialPlano(dto.getDataInicialPlano());
         planejamentoTreinoEntity.setDataFinalPlano(dto.getDataFinalPlano());
-        planejamentoTreinoEntity.setAluno(alunoService.recuperarPorId(dto.getAlunoId()));
+        planejamentoTreinoEntity.setAluno(alunoService.findById(dto.getAlunoId()));
         buildTrainings(planejamentoTreinoEntity, dto.getTreinos());
         repository.save(planejamentoTreinoEntity);
     }
@@ -69,12 +69,12 @@ public class PlanejamentoTreinoService {
     }
 
 
-    private void buildTrainings(PlanejamentoTreinoEntity planejamentoTreinoEntity, List<TreinoRequestDto> treinos) {
+    private void buildTrainings(PlanejamentoTreinoEntity planejamentoTreino, List<TreinoRequestDto> treinos) {
 
         if (!CollectionUtils.isEmpty(treinos)) {
             List<TreinoEntity> treinoEntities = treinos.stream().map(treino -> {
                 TreinoEntity treinoItem = TreinoEntity.builder()
-                        .planejamentoTreinoEntity(planejamentoTreinoEntity)
+                        .planejamentoTreino(planejamentoTreino)
                         .id(treino.getId() != null ? treino.getId() : null)
                         .descricao(treino.getDescricao())
                         .build();
@@ -82,7 +82,7 @@ public class PlanejamentoTreinoService {
                 buildExerciseMetrics(treinoItem, treino.getMetricasExercicios());
                 return treinoItem;
             }).toList();
-            planejamentoTreinoEntity.setTreinoEntities(treinoEntities);
+            planejamentoTreino.setTreinos(treinoEntities);
         }
     }
 
@@ -90,13 +90,13 @@ public class PlanejamentoTreinoService {
 
         if (!CollectionUtils.isEmpty(metricasExercicio)) {
             List<MetricasExercicioEntity> metricas = metricasExercicio.stream().map(metrica -> MetricasExercicioEntity.builder()
-                    .treinoEntity(treinoEntitie)
+                    .treino(treinoEntitie)
                     .id(metrica.getId() != null ? metrica.getId() : null)
                     .tempoDescanso(metrica.getTempoDescanso())
                     .series(metrica.getSeries())
                     .repeticoes(metrica.getRepeticoes())
                     .observacao((metrica.getObservacao()))
-                    .exercicioEntity(exercicioService.recuperarPorId(metrica.getExercicioId()))
+                    .exercicio(exercicioService.findById(metrica.getExercicioId()))
                     .build()).toList();
             treinoEntitie.setMetricasExercicio(metricas);
         }

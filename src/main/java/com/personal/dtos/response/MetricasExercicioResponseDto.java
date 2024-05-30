@@ -17,11 +17,11 @@ public class MetricasExercicioResponseDto {
     private Float tempoDescanso;
     private String nomeExercicio;
 
-    public MetricasExercicioResponseDto(MetricasExercicioEntity metrics) {
-        this.id = metrics.getId();
-        this.series = metrics.getSeries();
-        this.repeticoes = metrics.getRepeticoes();
-        this.tempoDescanso = metrics.getTempoDescanso();
-        this.nomeExercicio = metrics.getExercicioEntity().getNomeExercicio();
+    public MetricasExercicioResponseDto(MetricasExercicioEntity metricas) {
+        this.id = metricas.getId();
+        this.series = metricas.getSeries();
+        this.repeticoes = metricas.getRepeticoes();
+        this.tempoDescanso = metricas.getTempoDescanso();
+        this.nomeExercicio = metricas.getExercicio().getNomeExercicio();
     }
 }

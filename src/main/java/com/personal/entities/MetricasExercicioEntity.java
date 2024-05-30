@@ -18,21 +18,25 @@ public class MetricasExercicioEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "series", nullable = false)
     private Long series;
 
+    @Column(name = "repeticoes", nullable = false)
     private Long repeticoes;
 
+    @Column(name = "tempo_descanso")
     private Float tempoDescanso;
 
+    @Column(name = "observacao", length = 400)
     private String observacao;
 
     @ManyToOne
-    @JoinColumn(name = "exercicioId")
-    private ExercicioEntity exercicioEntity;
+    @JoinColumn(name = "exercicio_id")
+    private ExercicioEntity exercicio;
 
     @ManyToOne
-    @JoinColumn(name = "trainingId")
-    private TreinoEntity treinoEntity;
+    @JoinColumn(name = "treino_id")
+    private TreinoEntity treino;
 
     public MetricasExercicioEntity(MetricasExerciciosRequestDto dto) {
         this.series = dto.getSeries();

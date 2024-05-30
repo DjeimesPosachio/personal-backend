@@ -27,7 +27,7 @@ public class PlanejamentoTreinoResponseDto {
         this.dataInicialPlano = plan.getDataInicialPlano();
         this.dataFinalPlano = plan.getDataFinalPlano();
 
-        this.treinos =  !CollectionUtils.isEmpty(plan.getTreinoEntities()) ? plan.getTreinoEntities().stream()
+        this.treinos =  !CollectionUtils.isEmpty(plan.getTreinos()) ? plan.getTreinos().stream()
                 .map(TreinoResponseDto::new)
                 .collect(Collectors.toList())
                 : List.of();

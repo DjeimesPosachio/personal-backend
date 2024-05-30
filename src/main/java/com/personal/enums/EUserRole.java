@@ -1,8 +1,9 @@
 package com.personal.enums;
 
 public enum EUserRole {
-    ADMIN("admin"),
-    USER("user");
+    ADMIN("Admin"),
+    USUARIO("Usuário"),
+    ALUNO("Aluno");
 
     private String role;
 

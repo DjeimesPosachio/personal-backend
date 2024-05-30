@@ -13,19 +13,15 @@ import lombok.NoArgsConstructor;
 public class ExercicioResponseDto {
     private Long id;
     private String name;
-    private String description;
     private Long sets;
     private Long sequence;
-    private String UrlGif;
 
     public ExercicioResponseDto(ExercicioEntity exercicioEntity) {
         this(
                 exercicioEntity.getId(),
-                exercicioEntity.getFileName(),
                 exercicioEntity.getNomeExercicio(),
                 exercicioEntity.getSeries(),
-                exercicioEntity.getRepeticoes(),
-                exercicioEntity.getUrlGif());
+                exercicioEntity.getRepeticoes());
     }
 
 }

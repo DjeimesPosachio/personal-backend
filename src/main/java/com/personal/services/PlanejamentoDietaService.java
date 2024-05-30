@@ -2,8 +2,10 @@ package com.personal.services;
 
 import com.personal.dtos.request.PlanejamentoDietaRequestDto;
 import com.personal.dtos.response.PlanejamentoDietaResponseDto;
+import com.personal.entities.ItemRefeicaoEntity;
 import com.personal.entities.PlanejamentoDietaEntity;
 import com.personal.entities.RefeicaoEntity;
+import com.personal.exceptions.EventNotFoundException;
 import com.personal.repositories.PlanejamentoDietaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,17 +28,10 @@ public class PlanejamentoDietaService {
         PlanejamentoDietaEntity dieta = PlanejamentoDietaEntity.builder()
                 .dataInicialDieta(dto.getDataInicialDieta())
                 .dataFinalDieta(dto.getDataFinalDieta())
-                .aluno(alunoService.recuperarPorId(dto.getAlunoId()))
+                .aluno(alunoService.findById(dto.getAlunoId()))
                 .build();
 
-        dieta.setRefeicoes(dto.getRefeicoes().stream().map(r ->
-                RefeicaoEntity.builder()
-                        .descricao(r.getDescricao())
-                        .horaRefeicao(r.getHoraRefeicao())
-                        .tipoRefeicao(r.getTipoRefeicao())
-                        .planejamentoDieta(dieta)
-                        .build()).collect(Collectors.toList())
-        );
+        dieta.setRefeicoes(buildRefeicoes(dto, dieta));
 
         repository.save(dieta);
     }
@@ -46,7 +41,7 @@ public class PlanejamentoDietaService {
     }
 
     public PlanejamentoDietaEntity findById(Long id) {
-        return repository.findById(id).orElseThrow(() -> new RuntimeException("Planejamento não encontrado"));
+        return repository.findById(id).orElseThrow(() -> new EventNotFoundException("Planejamento não encontrado"));
     }
 
     public PlanejamentoDietaResponseDto recuperarPlanejamentoPeloId(Long id) {
@@ -60,19 +55,11 @@ public class PlanejamentoDietaService {
 
         dieta.setDataInicialDieta(dto.getDataInicialDieta());
         dieta.setDataFinalDieta(dto.getDataFinalDieta());
-        dieta.setAluno(alunoService.recuperarPorId(dto.getAlunoId()));
+        dieta.setAluno(alunoService.findById(dto.getAlunoId()));
 
         dieta.getRefeicoes().clear();
 
-        dieta.getRefeicoes().addAll(dto.getRefeicoes().stream().map(r ->
-                RefeicaoEntity.builder()
-                        .id(r.getId())
-                        .descricao(r.getDescricao())
-                        .horaRefeicao(r.getHoraRefeicao())
-                        .tipoRefeicao(r.getTipoRefeicao())
-                        .planejamentoDieta(dieta)
-                        .build()).toList()
-        );
+        dieta.getRefeicoes().addAll(buildRefeicoes(dto, dieta));
 
         repository.save(dieta);
     }
@@ -81,5 +68,30 @@ public class PlanejamentoDietaService {
         repository.deleteById(id);
     }
 
+    private static List<RefeicaoEntity> buildRefeicoes(PlanejamentoDietaRequestDto dto, PlanejamentoDietaEntity dieta) {
+        return dto.getRefeicoes().stream().map(r -> {
+                    RefeicaoEntity refeicao = RefeicaoEntity.builder()
+                            .descricao(r.getDescricao())
+                            .horaRefeicao(r.getHoraRefeicao())
+                            .tipoRefeicao(r.getTipoRefeicao())
+                            .planejamentoDieta(dieta)
+                            .build();
+
+                    List<ItemRefeicaoEntity> itens = r.getItensRefeicao().stream().map(item ->
+                            ItemRefeicaoEntity.builder()
+                                    .descricao(item.getDescricao())
+                                    .quantidade(item.getQuantidade())
+                                    .unidadeCaseira(item.getUnidadeCaseira())
+                                    .unidadeMedida(item.getUnidadeMedida())
+                                    .refeicao(refeicao)
+                                    .build()
+                    ).collect(Collectors.toList());
+
+                    refeicao.setItensRefeicao(itens);
+
+                    return refeicao;
+                }
+        ).collect(Collectors.toList());
+    }
 
 }

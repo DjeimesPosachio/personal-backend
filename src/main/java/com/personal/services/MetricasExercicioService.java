@@ -35,8 +35,8 @@ public class MetricasExercicioService {
             throw new EventNotFoundException("Nao Encontrado");
         }
         MetricasExercicioEntity metrics = new MetricasExercicioEntity(dto);
-        metrics.setExercicioEntity(ExerciseOptional.get());
-        metrics.setTreinoEntity(TrainingOptional.get());
+        metrics.setExercicio(ExerciseOptional.get());
+        metrics.setTreino(TrainingOptional.get());
         return new MetricasExercicioResponseDto(repository.save(metrics));
     }
 

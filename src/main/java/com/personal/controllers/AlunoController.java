@@ -17,24 +17,26 @@ public class AlunoController {
     private AlunoService alunoService;
 
     @PostMapping
-    public ResponseEntity<HttpStatus> cadastrarAluno(@RequestBody AlunoDto alunoDto) {
-        alunoService.cadastrarAluno(alunoDto);
+    public ResponseEntity<HttpStatus> create(@RequestBody AlunoDto alunoDto) {
+        alunoService.create(alunoDto);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<HttpStatus> editarAluno(@RequestBody AlunoDto alunoDto) {
-        alunoService.editarAluno(alunoDto);
+    public ResponseEntity<HttpStatus> update(@RequestBody AlunoDto alunoDto) {
+        alunoService.update(alunoDto);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    public ResponseEntity<AlunoResponseDto> obterAlunoPorId(@PathVariable Long id) {
+    @GetMapping("/{id}")
+    public ResponseEntity<AlunoResponseDto> findById(@PathVariable Long id) {
         return new ResponseEntity<>(alunoService.recuperarAlunoPeloId(id), HttpStatus.OK);
     }
 
-    public Page<AlunoResponseDto> buscarAlunos(@RequestParam(name = "page", required = false, defaultValue = "0") int page,
+    @GetMapping
+    public Page<AlunoResponseDto> findAll(@RequestParam(name = "page", required = false, defaultValue = "0") int page,
                                                 @RequestParam(name = "size", required = false, defaultValue = "20") int size) {
-        return alunoService.buscarAlunos(PageRequest.of(page, size));
+        return alunoService.findAll(PageRequest.of(page, size));
     }
 
 }

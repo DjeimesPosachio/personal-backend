@@ -22,13 +22,15 @@ public class PlanejamentoDietaEntity {
     private Long id;
 
     @Temporal(TemporalType.DATE)
+    @Column(name = "data_inicial_dieta", nullable = false)
     private LocalDate dataInicialDieta;
 
     @Temporal(TemporalType.DATE)
+    @Column(name = "data_final_dieta", nullable = false)
     private LocalDate dataFinalDieta;
 
-    @ManyToOne
-    @JoinColumn(name = "alunoId")
+    @JoinColumn(name = "aluno_id", referencedColumnName = "id")
+    @ManyToOne(fetch = FetchType.LAZY)
     private AlunoEntity aluno;
 
     @OneToMany(mappedBy = "planejamentoDieta", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)

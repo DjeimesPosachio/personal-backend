@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "Usuario")
 @RestController
-@RequestMapping("/v1/user")
+@RequestMapping("/v1/usuarios")
 
 public class UsuarioController {
 
@@ -21,20 +21,26 @@ public class UsuarioController {
     private UserService service;
 
     @PostMapping
-    public ResponseEntity<UsuarioResponseDto> CreateUser(@RequestBody @Valid UserRequestDto data) {
+    public ResponseEntity<UsuarioResponseDto> criarUsuario(@RequestBody @Valid UserRequestDto data) {
         return ResponseEntity.ok(service.create(data));
     }
 
+    @GetMapping("/{id}")
+    public UsuarioResponseDto recuperarUsuario(@PathVariable Long id) {
+        return service.recuperarPorId(id);
+    }
+
     @PutMapping("/{id}")
-    public ResponseEntity<UsuarioResponseDto> update(@PathVariable Long id, @RequestBody UserRequestDto dto) {
+    public ResponseEntity<UsuarioResponseDto> editarUsuario(@PathVariable Long id, @RequestBody UserRequestDto dto) {
         return ResponseEntity.ok(service.update(id, dto));
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
+    public void excluirUsuario(@PathVariable Long id) {
         service.delete(id);
     }
 
+    @GetMapping
     public Page<UsuarioResponseDto> buscarUsuarios(@RequestParam(name = "page", required = false, defaultValue = "0") int page,
                                                    @RequestParam(name = "size", required = false, defaultValue = "20") int size) {
         return service.buscarUsuarios(PageRequest.of(page, size));

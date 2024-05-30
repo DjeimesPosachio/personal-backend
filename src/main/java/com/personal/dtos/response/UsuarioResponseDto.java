@@ -14,7 +14,6 @@ public class UsuarioResponseDto {
     private Long id;
     private String name;
     private String email;
-
     public UsuarioResponseDto(User user) {
         this.id = user.getId();
         this.name = user.getNome();

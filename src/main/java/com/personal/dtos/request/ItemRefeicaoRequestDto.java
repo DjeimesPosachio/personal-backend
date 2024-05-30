@@ -8,22 +8,21 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalTime;
-import java.util.List;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class RefeicaoRequestDto {
+public class ItemRefeicaoRequestDto {
 
     private Long id;
 
     private String descricao;
 
-    private LocalTime horaRefeicao;
+    private Long quantidade;
 
-    private TipoRefeicao tipoRefeicao;
+    private EUnidadeMedida unidadeMedida;
 
-    private List<ItemRefeicaoRequestDto> itensRefeicao;
+    private Integer unidadeCaseira;
 
 }

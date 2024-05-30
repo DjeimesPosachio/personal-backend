@@ -17,6 +17,11 @@ public class AlunoEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "nome", length = 200, nullable = false)
+    private String nome;
+
+    @Column(name = "data_nascimento")
     private LocalDate dataNascimento;
 
     @JoinColumn(name = "id_usuario", referencedColumnName = "id", nullable = false)

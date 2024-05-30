@@ -1,5 +1,7 @@
 package com.personal.dtos.response;
 
+import com.personal.entities.AlunoEntity;
+import com.personal.entities.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,6 +16,14 @@ import java.time.LocalDate;
 public class AlunoResponseDto {
 
     private Long id;
+    private String nome;
     private LocalDate dataNascimento;
     private UsuarioResponseDto usuario;
+
+    public AlunoResponseDto(AlunoEntity aluno) {
+        this.id = aluno.getId();
+        this.nome = aluno.getNome();
+        this.dataNascimento = aluno.getDataNascimento();
+        this.usuario = new UsuarioResponseDto(aluno.getUser());
+    }
 }

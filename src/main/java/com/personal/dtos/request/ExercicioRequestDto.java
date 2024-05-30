@@ -12,8 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ExercicioRequestDto {
     @NotBlank(message = "description cannot be blank")
-    private String name;
     private String nomeExercicio;
-    private long series;
-    private long repeticoes;
+    private Long series;
+    private Long repeticoes;
 }

@@ -23,17 +23,19 @@ public class PlanejamentoTreinoEntity {
     private Long id;
 
     @Temporal(TemporalType.DATE)
+    @Column(name = "data_inicial_treino", nullable = false)
     private LocalDate dataInicialPlano;
 
     @Temporal(TemporalType.DATE)
+    @Column(name = "data_final_treino", nullable = false)
     private LocalDate dataFinalPlano;
 
     @ManyToOne
-    @JoinColumn(name = "alunoId")
+    @JoinColumn(name = "aluno_id")
     private AlunoEntity aluno;
 
-    @OneToMany(mappedBy = "planejamentoTreinoEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<TreinoEntity> treinoEntities;
+    @OneToMany(mappedBy = "planejamentoTreino", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<TreinoEntity> treinos;
 
     public PlanejamentoTreinoEntity(PlanejamentoTreinoRequestDto dto) {
         this.dataInicialPlano = dto.getDataInicialPlano();

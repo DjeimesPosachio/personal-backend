@@ -22,11 +22,11 @@ public class TreinoEntity {
   private String sequenciaTreino;
   private String descricao;
 
-  @JoinColumn(name = "planejamentoTreinoId", referencedColumnName = "id")
+  @JoinColumn(name = "planejamento_treino_id", referencedColumnName = "id")
   @ManyToOne(fetch = FetchType.LAZY)
-  private PlanejamentoTreinoEntity planejamentoTreinoEntity;
+  private PlanejamentoTreinoEntity planejamentoTreino;
 
-  @OneToMany(mappedBy = "treinoEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+  @OneToMany(mappedBy = "treino", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
   private List<MetricasExercicioEntity> metricasExercicio;
 
   public TreinoEntity(TreinoRequestDto dto) {
