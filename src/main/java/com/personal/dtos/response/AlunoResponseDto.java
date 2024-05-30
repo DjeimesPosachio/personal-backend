@@ -1,7 +1,6 @@
 package com.personal.dtos.response;
 
 import com.personal.entities.AlunoEntity;
-import com.personal.entities.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

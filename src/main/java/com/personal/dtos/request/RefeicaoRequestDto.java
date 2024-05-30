@@ -1,6 +1,5 @@
 package com.personal.dtos.request;
 
-import com.personal.enums.EUnidadeMedida;
 import com.personal.enums.TipoRefeicao;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

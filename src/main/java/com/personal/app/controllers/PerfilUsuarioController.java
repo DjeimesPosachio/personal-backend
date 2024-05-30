@@ -1,7 +1,6 @@
 package com.personal.app.controllers;
 
 import com.personal.app.services.PerfilUsuarioService;
-import com.personal.app.services.PlanejamentoDietaAppService;
 import com.personal.dtos.response.PlanejamentoDietaResponseDto;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;

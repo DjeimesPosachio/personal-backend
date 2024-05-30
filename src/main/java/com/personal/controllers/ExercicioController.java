@@ -2,20 +2,14 @@ package com.personal.controllers;
 
 import com.personal.dtos.request.ExercicioRequestDto;
 import com.personal.dtos.response.ExercicioResponseDto;
-import com.personal.dtos.response.UsuarioResponseDto;
 import com.personal.services.ExercicioService;
-
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.validation.Valid;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
