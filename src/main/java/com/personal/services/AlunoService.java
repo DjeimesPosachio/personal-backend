@@ -7,23 +7,21 @@ import com.personal.entities.User;
 import com.personal.exceptions.EventNotFoundException;
 import com.personal.repositories.AlunoRepository;
 import com.personal.repositories.UsuarioRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class AlunoService {
 
-    @Autowired
-    private AlunoRepository alunoRepository;
+    private final AlunoRepository alunoRepository;
 
-    @Autowired
-    private UsuarioRepository userRepository;
+    private final UsuarioRepository userRepository;
 
-    @Autowired
-    private UserService userService;
-
+    private final UserService userService;
 
     public AlunoEntity create(AlunoDto alunoDto) {
         User user = userService.findById(alunoDto.getUsuarioId());

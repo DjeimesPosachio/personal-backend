@@ -1,6 +1,6 @@
 package com.personal.dtos.request;
 
-import com.personal.enums.EUserRole;
+import com.personal.enums.UserRole;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -19,5 +19,5 @@ public class RegisterRequestDto {
 
     private String password;
 
-    private EUserRole role;
+    private UserRole role;
 }

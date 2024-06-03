@@ -1,6 +1,7 @@
 package com.personal.dtos.response;
 
 import com.personal.entities.TreinoEntity;
+import com.personal.enums.SequenciaTreino;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,7 +18,7 @@ public class TreinoResponseDto {
     private Long id;
     private Boolean treinoAtual;
     private String descricao;
-    private String sequenciaTreino;
+    private SequenciaTreino sequenciaTreino;
     private List<MetricasExercicioResponseDto> metricasExercicio;
 
     public TreinoResponseDto(TreinoEntity treinoEntity) {

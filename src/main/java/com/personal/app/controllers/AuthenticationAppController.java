@@ -5,7 +5,7 @@ import com.personal.dtos.request.AuthenticationRequestDto;
 import com.personal.dtos.response.LoginResponseDto;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 @Tag(name = "Autenticação app", description = "Autenticação do aplicativo")
 @RestController
 @RequestMapping("/v1/app/auth")
+@RequiredArgsConstructor
 public class AuthenticationAppController {
 
-    @Autowired
-    private AutheticationAppService service;
+    private final AutheticationAppService service;
 
     @PostMapping("/login")
     public ResponseEntity<LoginResponseDto> loginApp(@RequestBody @Valid AuthenticationRequestDto data) {

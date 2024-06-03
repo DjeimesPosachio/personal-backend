@@ -6,20 +6,18 @@ import com.personal.dtos.response.UsuarioResponseDto;
 import com.personal.entities.User;
 import com.personal.repositories.UsuarioRepository;
 import com.personal.security.TokenService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class AutheticationAppService {
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
-    @Autowired
-    private UsuarioRepository repository;
-    @Autowired
-    private TokenService tokenService;
+    private final AuthenticationManager authenticationManager;
+    private final UsuarioRepository repository;
+    private final TokenService tokenService;
 
     public LoginResponseDto Login(AuthenticationRequestDto dto) {
         var usernamePassword = new UsernamePasswordAuthenticationToken(dto.getEmail(), dto.getPassword());

@@ -12,9 +12,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ExercicioResponseDto {
     private Long id;
-    private String name;
-    private Long sets;
-    private Long sequence;
+    private String nomeExercicio;
+    private Long series;
+    private Long repeticoes;
 
     public ExercicioResponseDto(ExercicioEntity exercicioEntity) {
         this(

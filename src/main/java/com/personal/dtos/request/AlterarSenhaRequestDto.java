@@ -9,10 +9,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class EmailRequestDto {
-    private String ownerRef;
-    private String emailFrom;
-    private String emailTo;
-    private String subject;
-    private String text;
+public class AlterarSenhaRequestDto {
+
+    private String senhaAtual;
+    private String senha;
+    private String novaSenha;
 }

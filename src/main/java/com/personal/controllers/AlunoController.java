@@ -3,7 +3,7 @@ package com.personal.controllers;
 import com.personal.dtos.request.AlunoDto;
 import com.personal.dtos.response.AlunoResponseDto;
 import com.personal.services.AlunoService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
@@ -11,10 +11,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/alunos")
+@RequestMapping("/v1/alunos")
+@RequiredArgsConstructor
 public class AlunoController {
-    @Autowired
-    private AlunoService alunoService;
+
+    private final AlunoService alunoService;
 
     @PostMapping
     public ResponseEntity<HttpStatus> create(@RequestBody AlunoDto alunoDto) {

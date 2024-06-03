@@ -1,5 +1,6 @@
 package com.personal.dtos.request;
 
+import com.personal.enums.SequenciaTreino;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,6 +16,6 @@ public class TreinoRequestDto {
     private Long id;
     private Boolean treinoAtual;
     private String descricao;
-    private String sequenciaTreino;
+    private SequenciaTreino sequenciaTreino;
     private List<MetricasExerciciosRequestDto> metricasExercicios;
 }

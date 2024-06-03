@@ -7,7 +7,7 @@ import com.personal.entities.User;
 import com.personal.exceptions.EventNotFoundException;
 import com.personal.repositories.AlunoRepository;
 import com.personal.repositories.UsuarioRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,16 +18,12 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class UserService {
 
-    @Autowired
-    private UsuarioRepository repository;
-
-    @Autowired
-    private AlunoRepository alunoRepository;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private final UsuarioRepository repository;
+    private final AlunoRepository alunoRepository;
+    private final PasswordEncoder passwordEncoder;
 
     public UsuarioResponseDto create(
             UserRequestDto dto) {

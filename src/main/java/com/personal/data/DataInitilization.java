@@ -24,7 +24,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.personal.entities.ExercicioEntity;
 import com.personal.entities.User;
-import com.personal.enums.EUserRole;
+import com.personal.enums.UserRole;
 import com.personal.repositories.ExercicioRepository;
 import com.personal.repositories.UsuarioRepository;
 
@@ -80,7 +80,7 @@ public class DataInitilization implements ApplicationListener<ContextRefreshedEv
             admin.setNome("admin");
             admin.setEmail(EMAIL_PADRAO);
             admin.setSenha(passwordEncoder.encode("admin1234"));
-            admin.setRole(EUserRole.ADMIN);
+            admin.setRole(UserRole.ADMIN);
             usuarioRepository.save(admin);
             // Inserir cinco exercícios
             List<File> files = getAllGifFiles();

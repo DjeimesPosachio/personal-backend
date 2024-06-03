@@ -7,7 +7,7 @@ import com.personal.entities.PlanejamentoDietaEntity;
 import com.personal.entities.RefeicaoEntity;
 import com.personal.exceptions.EventNotFoundException;
 import com.personal.repositories.PlanejamentoDietaRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,12 +17,11 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class PlanejamentoDietaService {
-    @Autowired
-    private PlanejamentoDietaRepository repository;
 
-    @Autowired
-    private AlunoService alunoService;
+    private final PlanejamentoDietaRepository repository;
+    private final AlunoService alunoService;
 
     public void create(PlanejamentoDietaRequestDto dto) {
         PlanejamentoDietaEntity dieta = PlanejamentoDietaEntity.builder()

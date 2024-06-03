@@ -5,7 +5,7 @@ import com.personal.dtos.response.PlanejamentoDietaResponseDto;
 import com.personal.services.PlanejamentoDietaService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,9 +14,10 @@ import java.util.List;
 @Tag(name = "Plano de dieta", description = "Plenajamento de dieta")
 @RestController
 @RequestMapping("/v1/planejamento-dieta")
+@RequiredArgsConstructor
 public class PlanejamentoDietaController {
-    @Autowired
-    private PlanejamentoDietaService service;
+
+    private final PlanejamentoDietaService service;
 
     @PostMapping
     public void Create(@RequestBody PlanejamentoDietaRequestDto dto) {

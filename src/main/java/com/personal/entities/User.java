@@ -1,7 +1,7 @@
 package com.personal.entities;
 
 import com.personal.dtos.request.UserRequestDto;
-import com.personal.enums.EUserRole;
+import com.personal.enums.UserRole;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -35,7 +35,7 @@ public class User implements UserDetails {
 
     @Column(name = "role", nullable = false)
     @Enumerated(EnumType.STRING)
-    private EUserRole role;
+    private UserRole role;
 
     public User(UserRequestDto data) {
         this.nome = data.getNome();
@@ -43,7 +43,7 @@ public class User implements UserDetails {
         this.senha = data.getSenha();
     }
 
-    public User(String email, String password, EUserRole role) {
+    public User(String email, String password, UserRole role) {
         this.email = email;
         this.senha = password;
         this.role = role;
@@ -51,7 +51,7 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        if (this.role == EUserRole.ADMIN)
+        if (this.role == UserRole.ADMIN)
             return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"));
         else
             return List.of(new SimpleGrantedAuthority("ROLE_USER"));

@@ -5,7 +5,7 @@ import com.personal.dtos.response.ExercicioResponseDto;
 import com.personal.entities.ExercicioEntity;
 import com.personal.exceptions.EventNotFoundException;
 import com.personal.repositories.ExercicioRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Async;
@@ -16,10 +16,10 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 @Service
+@RequiredArgsConstructor
 public class ExercicioService {
 
-    @Autowired
-    private ExercicioRepository repository;
+    private final ExercicioRepository repository;
 
     public ExercicioResponseDto create(
             ExercicioRequestDto dto) {
@@ -49,7 +49,7 @@ public class ExercicioService {
 
     public ExercicioResponseDto update(Long id, ExercicioRequestDto dto) {
         ExercicioEntity exercicio = findById(id);
-
+        exercicio.setNomeExercicio(dto.getNomeExercicio());
         exercicio.setSeries(dto.getSeries());
         exercicio.setRepeticoes(dto.getRepeticoes());
         return new ExercicioResponseDto(repository.save(exercicio));

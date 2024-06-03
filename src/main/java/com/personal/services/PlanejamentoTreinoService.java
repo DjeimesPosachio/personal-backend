@@ -9,7 +9,7 @@ import com.personal.entities.PlanejamentoTreinoEntity;
 import com.personal.entities.TreinoEntity;
 import com.personal.exceptions.EventNotFoundException;
 import com.personal.repositories.PlanejamentoTreinoRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
@@ -19,15 +19,12 @@ import java.util.List;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class PlanejamentoTreinoService {
-    @Autowired
-    private PlanejamentoTreinoRepository repository;
 
-    @Autowired
-    private AlunoService alunoService;
-
-    @Autowired
-    private ExercicioService exercicioService;
+    private final PlanejamentoTreinoRepository repository;
+    private final AlunoService alunoService;
+    private final ExercicioService exercicioService;
 
     public void create(PlanejamentoTreinoRequestDto dto) {
         PlanejamentoTreinoEntity planejamentoTreinoEntity = PlanejamentoTreinoEntity.builder()
@@ -77,6 +74,7 @@ public class PlanejamentoTreinoService {
                         .planejamentoTreino(planejamentoTreino)
                         .id(treino.getId() != null ? treino.getId() : null)
                         .descricao(treino.getDescricao())
+                        .sequenciaTreino(treino.getSequenciaTreino())
                         .build();
 
                 buildExerciseMetrics(treinoItem, treino.getMetricasExercicios());

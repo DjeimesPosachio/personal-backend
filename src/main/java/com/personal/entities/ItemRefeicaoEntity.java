@@ -1,6 +1,6 @@
 package com.personal.entities;
 
-import com.personal.enums.EUnidadeMedida;
+import com.personal.enums.UnidadeMedida;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -26,7 +26,7 @@ public class ItemRefeicaoEntity {
 
     @Column(name = "unidade_medida", length = 30)
     @Enumerated(EnumType.STRING)
-    private EUnidadeMedida unidadeMedida;
+    private UnidadeMedida unidadeMedida;
 
     @Column(name = "unidade_caseira")
     private Integer unidadeCaseira;

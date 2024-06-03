@@ -4,7 +4,7 @@ import com.personal.dtos.request.ExercicioRequestDto;
 import com.personal.dtos.response.ExercicioResponseDto;
 import com.personal.services.ExercicioService;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
@@ -17,10 +17,10 @@ import java.util.concurrent.CompletableFuture;
 @Tag(name = "Exercicio", description = "Criacao de exercicio")
 @RestController
 @RequestMapping("/v1/exercicios")
+@RequiredArgsConstructor
 public class ExercicioController {
 
-    @Autowired
-    private ExercicioService service;
+    private final ExercicioService service;
 
     @PostMapping
     public ExercicioResponseDto create(@RequestBody ExercicioRequestDto dto) {

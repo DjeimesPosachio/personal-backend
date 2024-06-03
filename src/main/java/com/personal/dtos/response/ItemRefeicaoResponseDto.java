@@ -1,7 +1,7 @@
 package com.personal.dtos.response;
 
 import com.personal.entities.ItemRefeicaoEntity;
-import com.personal.enums.EUnidadeMedida;
+import com.personal.enums.UnidadeMedida;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,7 +19,7 @@ public class ItemRefeicaoResponseDto {
 
     private Long quantidade;
 
-    private EUnidadeMedida unidadeMedida;
+    private UnidadeMedida unidadeMedida;
 
     private Integer unidadeCaseira;
 
