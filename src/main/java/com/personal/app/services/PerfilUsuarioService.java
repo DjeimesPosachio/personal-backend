@@ -56,9 +56,8 @@ public class PerfilUsuarioService {
         if (!passwordEncoder.matches(request.getSenhaAtual(), user.getSenha()))
             throw new EventNotFoundException("Senha atual está incorreta");
 
-
+        user.setSenha(request.getSenha());
         usuarioRepository.save(user);
-
     }
 
 }
