@@ -34,6 +34,11 @@ public class PlanejamentoDietaController {
         return ResponseEntity.ok(service.recuperarPlanejamentoPeloId(id));
     }
 
+    @GetMapping("/recuperar-ultimo/{idAluno}")
+    public ResponseEntity<PlanejamentoDietaResponseDto> recuperarUltimaDietaPeloIdAluno(@PathVariable Long idAluno) {
+        return ResponseEntity.ok(service.recuperarUltimoPlanejamentoPeloIdAluno(idAluno));
+    }
+
     @PutMapping("/{id}")
     public void update(
             @PathVariable Long id,

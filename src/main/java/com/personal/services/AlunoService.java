@@ -6,7 +6,8 @@ import com.personal.entities.AlunoEntity;
 import com.personal.entities.User;
 import com.personal.exceptions.EventNotFoundException;
 import com.personal.repositories.AlunoRepository;
-import com.personal.repositories.UsuarioRepository;
+import com.personal.repositories.PlanejamentoDietaRepository;
+import com.personal.repositories.PlanejamentoTreinoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,9 +18,8 @@ import org.springframework.stereotype.Service;
 public class AlunoService {
 
     private final AlunoRepository alunoRepository;
-
-    private final UsuarioRepository userRepository;
-
+    private final PlanejamentoTreinoRepository planejamentoTreinoRepository;
+    private final PlanejamentoDietaRepository planejamentoDietaRepository;
     private final UserService userService;
 
     public AlunoEntity create(AlunoDto alunoDto) {
@@ -43,7 +43,6 @@ public class AlunoService {
         alunoRepository.save(aluno);
     }
 
-
     public AlunoResponseDto recuperarAlunoPeloId(Long id) {
         AlunoEntity aluno = findById(id);
 
@@ -53,7 +52,14 @@ public class AlunoService {
 
     public Page<AlunoResponseDto> findAll(Pageable pageable) {
         Page<AlunoEntity> alunos = alunoRepository.findAll(pageable);
-        return alunos.map(AlunoResponseDto::new);
+        return alunos.map(a -> new AlunoResponseDto(
+                        a.getId(),
+                        a.getNome(),
+                        a.getDataNascimento(),
+                        a.getUser(),
+                        planejamentoDietaRepository.existsCurrentDietaByAlunoId(a.getId()),
+                        planejamentoTreinoRepository.existsCurrentTreinoByAlunoId(a.getId())
+                )
+        );
     }
-
 }

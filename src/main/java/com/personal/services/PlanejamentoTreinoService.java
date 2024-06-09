@@ -52,6 +52,15 @@ public class PlanejamentoTreinoService {
         return new PlanejamentoTreinoResponseDto(planejamento);
     }
 
+    public PlanejamentoTreinoResponseDto recuperarUltimoPlanejamentoPeloIdAluno(Long idAluno) {
+        List<PlanejamentoTreinoEntity> planejamento = repository.findLastByDataAtualAndAlunoId(idAluno);
+
+        if(planejamento.isEmpty())
+            throw new RuntimeException("Sem planejamento de treino para o aluno.");
+
+        return new PlanejamentoTreinoResponseDto(planejamento.get(0));
+    }
+
     public void update(Long id, PlanejamentoTreinoRequestDto dto) {
         PlanejamentoTreinoEntity planejamentoTreinoEntity = findById(id);
         planejamentoTreinoEntity.setDataInicialPlano(dto.getDataInicialPlano());

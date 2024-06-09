@@ -49,6 +49,16 @@ public class PlanejamentoDietaService {
         return new PlanejamentoDietaResponseDto(planejamento);
     }
 
+    public PlanejamentoDietaResponseDto recuperarUltimoPlanejamentoPeloIdAluno(Long idAluno) {
+
+        List<PlanejamentoDietaEntity> dieta = repository.findLastByDataAtualAndAlunoId(idAluno);
+
+        if(dieta.isEmpty())
+            throw new RuntimeException("Sem dieta para o aluno.");
+
+        return new PlanejamentoDietaResponseDto(dieta.get(0));
+    }
+
     public void update(Long id, PlanejamentoDietaRequestDto dto) {
         PlanejamentoDietaEntity dieta = findById(id);
 

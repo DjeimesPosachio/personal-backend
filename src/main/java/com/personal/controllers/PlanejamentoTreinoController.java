@@ -34,6 +34,11 @@ public class PlanejamentoTreinoController {
         return ResponseEntity.ok(service.recuperarPlanejamentoPeloId(id));
     }
 
+    @GetMapping("/recuperar-ultimo/{idAluno}")
+    public ResponseEntity<PlanejamentoTreinoResponseDto> recuperarUltimoTreinoPeloIdAluno(@PathVariable Long idAluno) {
+        return ResponseEntity.ok(service.recuperarUltimoPlanejamentoPeloIdAluno(idAluno));
+    }
+
     @PutMapping("/{id}")
     public void update(
             @PathVariable Long id,
