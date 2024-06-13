@@ -66,8 +66,8 @@ public class PlanejamentoTreinoService {
         return new PlanejamentoTreinoResponseDto(planejamento.get(0));
     }
 
-    public void update(PlanejamentoTreinoRequestDto dto) {
-        PlanejamentoTreinoEntity planejamentoTreinoEntity = repository.findLastByDataAtualAndAlunoId(dto.getAlunoId()).get(0);
+    public void update(Long id, PlanejamentoTreinoRequestDto dto) {
+        PlanejamentoTreinoEntity planejamentoTreinoEntity = findById(id);
 
         planejamentoTreinoEntity.setDataInicialPlano(dto.getDataInicialPlano());
         planejamentoTreinoEntity.setDataFinalPlano(dto.getDataFinalPlano());

@@ -34,9 +34,14 @@ public class UsuarioController {
         return ResponseEntity.ok(service.update(id, dto));
     }
 
-    @DeleteMapping("/{id}")
-    public void excluirUsuario(@PathVariable Long id) {
-        service.delete(id);
+    @PutMapping("/{id}/inativar")
+    public void inativarUsuario(@PathVariable Long id) {
+        service.inativar(id);
+    }
+
+    @PutMapping("/{id}/ativar")
+    public void ativarUsuario(@PathVariable Long id) {
+        service.ativar(id);
     }
 
     @GetMapping

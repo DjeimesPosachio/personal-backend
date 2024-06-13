@@ -4,9 +4,11 @@ import com.personal.dtos.request.UserRequestDto;
 import com.personal.dtos.response.UsuarioResponseDto;
 import com.personal.entities.AlunoEntity;
 import com.personal.entities.User;
+import com.personal.enums.UserStatus;
 import com.personal.exceptions.EventNotFoundException;
 import com.personal.repositories.AlunoRepository;
 import com.personal.repositories.UsuarioRepository;
+import com.personal.validators.PasswordValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -32,11 +34,14 @@ public class UserService {
             throw new EventNotFoundException("Email ja existe");
         }
 
+        PasswordValidator.compararSenhas(dto.getSenha(), dto.getConfirmarSenha());
+
         User user = User.builder()
                 .nome(dto.getNome())
                 .email(dto.getEmail())
                 .role(dto.getRole())
                 .senha(passwordEncoder.encode(dto.getSenha()))
+                .status(UserStatus.ATIVO)
                 .build();
 
         User novouser = repository.save(user);
@@ -90,10 +95,16 @@ public class UserService {
         return new UsuarioResponseDto(usuarioAtualizado);
     }
 
-    public void delete(@PathVariable Long id) {
+    public void inativar(@PathVariable Long id) {
         User user = findById(id);
+        user.setStatus(UserStatus.INATIVO);
+        repository.save(user);
+    }
 
-        repository.delete(user);
+    public void ativar(@PathVariable Long id) {
+        User user = findById(id);
+        user.setStatus(UserStatus.ATIVO);
+        repository.save(user);
     }
 
     public Page<UsuarioResponseDto> buscarUsuarios(Pageable pageable) {

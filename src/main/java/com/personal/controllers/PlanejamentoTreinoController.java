@@ -1,5 +1,6 @@
 package com.personal.controllers;
 
+import com.personal.dtos.request.PlanejamentoDietaRequestDto;
 import com.personal.dtos.request.PlanejamentoTreinoRequestDto;
 import com.personal.dtos.response.PlanejamentoTreinoResponseDto;
 import com.personal.services.PlanejamentoTreinoService;
@@ -39,10 +40,9 @@ public class PlanejamentoTreinoController {
         return ResponseEntity.ok(service.recuperarUltimoPlanejamentoPeloIdAluno(idAluno));
     }
 
-    @PutMapping
-    public void update(
-            @RequestBody @Valid PlanejamentoTreinoRequestDto dto) {
-        service.update(dto);
+    @PutMapping("/{id}")
+    public void update(@RequestBody @Valid PlanejamentoTreinoRequestDto dto, @PathVariable Long id) {
+        service.update(id, dto);
     }
 
     @DeleteMapping("/{id}")

@@ -21,23 +21,11 @@ public class ExercicioEntity {
     @Column(name = "nome_exercicio", length = 300, nullable = false)
     private String nomeExercicio;
 
-    @Column(name = "series")
-    private Long series;
-
-    @Column(name = "repeticoes")
-    private Long repeticoes;
-
     public ExercicioEntity(ExercicioRequestDto dto) {
-
         this.nomeExercicio = dto.getNomeExercicio();
-        this.series = dto.getSeries();
-        this.repeticoes = dto.getRepeticoes();
-
     }
 
     public ExercicioEntity(String nomeExercicio) {
         this.nomeExercicio = nomeExercicio;
-        this.series = 0L;
-        this.repeticoes = 0L;
     }
 }

@@ -39,10 +39,9 @@ public class PlanejamentoDietaController {
         return ResponseEntity.ok(service.recuperarUltimoPlanejamentoPeloIdAluno(idAluno));
     }
 
-    @PutMapping
-    public void update(
-            @RequestBody @Valid PlanejamentoDietaRequestDto dto) {
-        service.update(dto);
+    @PutMapping("/{id}")
+    public void update(@RequestBody @Valid PlanejamentoDietaRequestDto dto, @PathVariable Long id) {
+        service.update(id, dto);
     }
 
     @DeleteMapping("/{id}")

@@ -64,22 +64,17 @@ public class PlanejamentoDietaService {
         return new PlanejamentoDietaResponseDto(dieta.get(0));
     }
 
-    public void update(PlanejamentoDietaRequestDto dto) {
-
-        PlanejamentoDietaEntity dieta = repository.findLastByDataAtualAndAlunoId(dto.getAlunoId()).get(0);
+    public void update(Long id, PlanejamentoDietaRequestDto dto) {
+        PlanejamentoDietaEntity dieta = findById(id);
 
         dieta.setDataInicialDieta(dto.getDataInicialDieta());
         dieta.setDataFinalDieta(dto.getDataFinalDieta());
-        dieta.setAluno(alunoService.findById(dto.getAlunoId()));
 
         dieta.getRefeicoes().clear();
-
         dieta.getRefeicoes().addAll(buildRefeicoes(dto, dieta));
 
         repository.save(dieta);
-
         enviarNotificacao(dieta, true);
-
     }
 
     public void delete(@PathVariable Long id) {

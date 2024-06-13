@@ -50,8 +50,6 @@ public class ExercicioService {
     public ExercicioResponseDto update(Long id, ExercicioRequestDto dto) {
         ExercicioEntity exercicio = findById(id);
         exercicio.setNomeExercicio(dto.getNomeExercicio());
-        exercicio.setSeries(dto.getSeries());
-        exercicio.setRepeticoes(dto.getRepeticoes());
         return new ExercicioResponseDto(repository.save(exercicio));
     }
 

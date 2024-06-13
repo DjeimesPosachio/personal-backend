@@ -1,8 +1,7 @@
 package com.personal.dtos.request;
 
 import com.personal.enums.UserRole;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
+import com.personal.enums.UserStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,11 +12,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserRequestDto {
-    @NotBlank(message = " cannot be blank")
     private String nome;
-    @NotBlank(message = "Email cannot be blank")
-    @Email(message = "Email should be valid")
     private String email;
     private String senha;
+    private String confirmarSenha;
     private UserRole role;
 }

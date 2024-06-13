@@ -5,13 +5,9 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum EUnidadeMedida {
-
-    UNIDADE("unidade"),
-    ML("ml"),
-    GRAMAS("gr"),
-    XICARA("xícara"),
-    PORCAO("porção");
+public enum UserStatus {
+    ATIVO("Ativo"),
+    INATIVO("Inativo");
 
     private final String descricao;
 }
