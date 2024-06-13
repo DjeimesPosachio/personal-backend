@@ -78,7 +78,6 @@ public class UserService {
 
         user.setNome(dto.getNome());
         user.setRole(dto.getRole());
-        user.setSenha(passwordEncoder.encode(dto.getSenha()));
         user.setEmail(dto.getEmail());
 
         User usuarioAtualizado = repository.save(user);
