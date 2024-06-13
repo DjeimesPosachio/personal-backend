@@ -21,6 +21,8 @@ public class AlunoResponseDto {
     private UsuarioResponseDto usuario;
     private Boolean existeDietaAtual;
     private Boolean existeTreinoAtual;
+    private Long idDietaAtual;
+    private Long idTreinoAtual;
 
     public AlunoResponseDto(AlunoEntity aluno) {
         this.id = aluno.getId();
@@ -29,12 +31,15 @@ public class AlunoResponseDto {
         this.usuario = new UsuarioResponseDto(aluno.getUser());
     }
 
-    public AlunoResponseDto(Long id, String nome, LocalDate dataNascimento, User user, Boolean existeDietaAtual, Boolean existeTreinoAtual) {
+    public AlunoResponseDto(Long id, String nome, LocalDate dataNascimento, User user, Boolean existeDietaAtual, Boolean existeTreinoAtual, Long idDietaAtual, Long idTreinoAtual) {
         this.id = id;
         this.nome = nome;
         this.dataNascimento = dataNascimento;
         this.usuario = new UsuarioResponseDto(user);
         this.existeDietaAtual = existeDietaAtual;
         this.existeTreinoAtual = existeTreinoAtual;
+        this.idDietaAtual = idDietaAtual;
+        this.idTreinoAtual = idTreinoAtual;
     }
 }
+

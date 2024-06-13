@@ -23,4 +23,9 @@ public interface PlanejamentoDietaRepository extends JpaRepository<PlanejamentoD
             "AND p.aluno.id = :idAluno")
     boolean existsCurrentDietaByAlunoId(@Param("idAluno") Long idAluno);
 
+    @Query("SELECT MAX(id) " +
+            "FROM planejamentoDieta p " +
+            "WHERE CURRENT_DATE BETWEEN p.dataInicialDieta AND p.dataFinalDieta " +
+            "AND p.aluno.id = :idAluno")
+    Long findDietaByAlunoId(@Param("idAluno") Long idAluno);
 }

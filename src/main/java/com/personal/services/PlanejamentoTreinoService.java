@@ -4,11 +4,11 @@ import com.personal.dtos.request.MetricasExerciciosRequestDto;
 import com.personal.dtos.request.PlanejamentoTreinoRequestDto;
 import com.personal.dtos.request.TreinoRequestDto;
 import com.personal.dtos.response.PlanejamentoTreinoResponseDto;
-import com.personal.entities.MetricasExercicioEntity;
-import com.personal.entities.PlanejamentoTreinoEntity;
-import com.personal.entities.TreinoEntity;
+import com.personal.entities.*;
 import com.personal.exceptions.EventNotFoundException;
 import com.personal.repositories.PlanejamentoTreinoRepository;
+import com.personal.repositories.UsuarioTokenNotificacaoRepository;
+import com.personal.utils.DateUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,6 +25,8 @@ public class PlanejamentoTreinoService {
     private final PlanejamentoTreinoRepository repository;
     private final AlunoService alunoService;
     private final ExercicioService exercicioService;
+    private final NotificacaoFirebaseService notificacaoFirebaseService;
+    private final UsuarioTokenNotificacaoRepository usuarioTokenNotificacaoRepository;
 
     public void create(PlanejamentoTreinoRequestDto dto) {
         PlanejamentoTreinoEntity planejamentoTreinoEntity = PlanejamentoTreinoEntity.builder()
@@ -36,6 +38,9 @@ public class PlanejamentoTreinoService {
         buildTrainings(planejamentoTreinoEntity, dto.getTreinos());
 
         repository.save(planejamentoTreinoEntity);
+
+        enviarNotificacao(planejamentoTreinoEntity, false);
+
     }
 
     public List<PlanejamentoTreinoResponseDto> findAll() {
@@ -61,13 +66,17 @@ public class PlanejamentoTreinoService {
         return new PlanejamentoTreinoResponseDto(planejamento.get(0));
     }
 
-    public void update(Long id, PlanejamentoTreinoRequestDto dto) {
-        PlanejamentoTreinoEntity planejamentoTreinoEntity = findById(id);
+    public void update(PlanejamentoTreinoRequestDto dto) {
+        PlanejamentoTreinoEntity planejamentoTreinoEntity = repository.findLastByDataAtualAndAlunoId(dto.getAlunoId()).get(0);
+
         planejamentoTreinoEntity.setDataInicialPlano(dto.getDataInicialPlano());
         planejamentoTreinoEntity.setDataFinalPlano(dto.getDataFinalPlano());
         planejamentoTreinoEntity.setAluno(alunoService.findById(dto.getAlunoId()));
         buildTrainings(planejamentoTreinoEntity, dto.getTreinos());
         repository.save(planejamentoTreinoEntity);
+
+        enviarNotificacao(planejamentoTreinoEntity, true);
+
     }
 
     public void delete(@PathVariable Long id) {
@@ -107,6 +116,27 @@ public class PlanejamentoTreinoService {
                     .build()).toList();
             treinoEntitie.setMetricasExercicio(metricas);
         }
+    }
+
+    private void enviarNotificacao(PlanejamentoTreinoEntity planejamentoTreino, boolean update){
+
+        String title = String.format("Olá, %s", planejamentoTreino.getAluno().getUser().getNome());
+
+        String periodoInicial = DateUtils.dateAsString(planejamentoTreino.getDataInicialPlano());
+        String periodoFinal  = DateUtils.dateAsString(planejamentoTreino.getDataFinalPlano());
+
+        String body = String.format("Treino de %s à %s foi criada.", periodoInicial, periodoFinal);
+
+        if(update)
+            body = String.format("Treino de %s à %s foi atualizada.", periodoInicial, periodoFinal);
+
+        List<UsuarioTokenNotificacao> tokens = usuarioTokenNotificacaoRepository.findByUsuarioId(planejamentoTreino.getAluno().getUser().getId());
+
+        for(UsuarioTokenNotificacao userToken : tokens){
+            notificacaoFirebaseService.sendNotification(title, body, userToken.getToken());
+        }
+
+
     }
 
 }

@@ -22,4 +22,10 @@ public interface PlanejamentoTreinoRepository extends JpaRepository<Planejamento
             "WHERE CURRENT_DATE BETWEEN p.dataInicialPlano AND p.dataFinalPlano " +
             "AND p.aluno.id = :idAluno")
     boolean existsCurrentTreinoByAlunoId(@Param("idAluno") Long idAluno);
+
+    @Query("SELECT MAX(id) " +
+            "FROM planejamentoTreino p " +
+            "WHERE CURRENT_DATE BETWEEN p.dataInicialPlano AND p.dataFinalPlano " +
+            "AND p.aluno.id = :idAluno")
+    Long findTreinoByAlunoId(@Param("idAluno") Long idAluno);
 }

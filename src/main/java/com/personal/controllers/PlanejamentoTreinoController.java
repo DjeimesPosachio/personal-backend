@@ -39,11 +39,10 @@ public class PlanejamentoTreinoController {
         return ResponseEntity.ok(service.recuperarUltimoPlanejamentoPeloIdAluno(idAluno));
     }
 
-    @PutMapping("/{id}")
+    @PutMapping
     public void update(
-            @PathVariable Long id,
             @RequestBody @Valid PlanejamentoTreinoRequestDto dto) {
-        service.update(id, dto);
+        service.update(dto);
     }
 
     @DeleteMapping("/{id}")

@@ -37,6 +37,9 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private UserRole role;
 
+    @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<UsuarioTokenNotificacao> tokens;
+
     public User(UserRequestDto data) {
         this.nome = data.getNome();
         this.email = data.getEmail();

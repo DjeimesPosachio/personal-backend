@@ -37,7 +37,7 @@ public class SecurityConfigurations {
     private static final String[] WHITE_LIST_URL = {
             "/v1/app/auth/**",
             "/v1/auth/**",
-            "/v1/enums/**",
+            "/v1/enums/all",
     };
 
 

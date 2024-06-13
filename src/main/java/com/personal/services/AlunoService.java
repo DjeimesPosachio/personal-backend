@@ -58,7 +58,9 @@ public class AlunoService {
                         a.getDataNascimento(),
                         a.getUser(),
                         planejamentoDietaRepository.existsCurrentDietaByAlunoId(a.getId()),
-                        planejamentoTreinoRepository.existsCurrentTreinoByAlunoId(a.getId())
+                        planejamentoTreinoRepository.existsCurrentTreinoByAlunoId(a.getId()),
+                        planejamentoDietaRepository.findDietaByAlunoId(a.getId()),
+                        planejamentoTreinoRepository.findTreinoByAlunoId(a.getId())
                 )
         );
     }
