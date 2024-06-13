@@ -1,6 +1,5 @@
 package com.personal.controllers;
 
-import com.personal.dtos.request.PlanejamentoDietaRequestDto;
 import com.personal.dtos.request.PlanejamentoTreinoRequestDto;
 import com.personal.dtos.response.PlanejamentoTreinoResponseDto;
 import com.personal.services.PlanejamentoTreinoService;

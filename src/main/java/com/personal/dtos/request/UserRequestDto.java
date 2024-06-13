@@ -1,7 +1,6 @@
 package com.personal.dtos.request;
 
 import com.personal.enums.UserRole;
-import com.personal.enums.UserStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
