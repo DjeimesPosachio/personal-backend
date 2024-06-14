@@ -1,7 +1,6 @@
 package com.personal.services;
 
 import com.google.common.collect.Lists;
-import com.personal.dtos.request.ExercicioRequestDto;
 import com.personal.dtos.request.UserRequestDto;
 import com.personal.dtos.response.UsuarioResponseDto;
 import com.personal.entities.AlunoEntity;
