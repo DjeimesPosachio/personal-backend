@@ -21,13 +21,10 @@ public class ItemRefeicaoResponseDto {
 
     private UnidadeMedida unidadeMedida;
 
-    private Integer unidadeCaseira;
-
     public ItemRefeicaoResponseDto(ItemRefeicaoEntity itemRefeicao) {
         this.id = itemRefeicao.getId();
         this.descricao = itemRefeicao.getDescricao();
         this.quantidade = itemRefeicao.getQuantidade();
-        this.unidadeCaseira = itemRefeicao.getUnidadeCaseira();
         this.unidadeMedida = itemRefeicao.getUnidadeMedida();
     }
 }

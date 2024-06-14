@@ -1,5 +1,7 @@
 package com.personal.services;
 
+import com.google.common.collect.Lists;
+import com.personal.dtos.request.ExercicioRequestDto;
 import com.personal.dtos.request.UserRequestDto;
 import com.personal.dtos.response.UsuarioResponseDto;
 import com.personal.entities.AlunoEntity;
@@ -8,6 +10,8 @@ import com.personal.enums.UserStatus;
 import com.personal.exceptions.EventNotFoundException;
 import com.personal.repositories.AlunoRepository;
 import com.personal.repositories.UsuarioRepository;
+import com.personal.utils.StringUtils;
+import com.personal.utils.ValidatorUtils;
 import com.personal.validators.PasswordValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -17,6 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -29,10 +34,8 @@ public class UserService {
 
     public UsuarioResponseDto create(
             UserRequestDto dto) {
-        boolean emailExistente = repository.existsByEmail(dto.getEmail());
-        if (emailExistente) {
-            throw new EventNotFoundException("Email ja existe");
-        }
+
+        ValidatorUtils.throwError(validarCreate(dto));
 
         PasswordValidator.compararSenhas(dto.getSenha(), dto.getConfirmarSenha());
 
@@ -74,6 +77,8 @@ public class UserService {
     public UsuarioResponseDto update(@PathVariable Long id,
                                      UserRequestDto dto) {
 
+        ValidatorUtils.throwError(validarUpdate(dto, id));
+
         User user = findById(id);
 
         user.setNome(dto.getNome());
@@ -111,5 +116,50 @@ public class UserService {
 
         return usuarios.map(UsuarioResponseDto::new);
     }
+
+    private List<String> validarCreate(UserRequestDto dto){
+
+        List<String> errors = Lists.newArrayList();
+
+        validar(dto, errors);
+
+        boolean emailExistente = repository.existsByEmail(dto.getEmail());
+
+        if(emailExistente){
+            errors.add("Email já existe.");
+            return errors;
+        }
+
+        return errors;
+
+    }
+
+    private List<String> validarUpdate(UserRequestDto dto, Long id){
+
+        List<String> errors = Lists.newArrayList();
+
+        validar(dto, errors);
+
+        if(Objects.isNull(id))
+            errors.add("Não foi informado o usuário para editar.");
+
+        return errors;
+
+    }
+
+
+    private void validar(UserRequestDto dto, List<String> errors){
+
+        if(StringUtils.isBlank(dto.getEmail()))
+            errors.add("E-mail é obrigatório.");
+
+        if(StringUtils.isBlank(dto.getNome()))
+            errors.add("Nome do usuário é obrigatório.");
+
+        if(Objects.isNull(dto.getRole()))
+            errors.add("Papel do usuário é obrigatório.");
+
+    }
+
 
 }

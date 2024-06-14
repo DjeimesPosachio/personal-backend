@@ -28,17 +28,9 @@ public class ItemRefeicaoEntity {
     @Enumerated(EnumType.STRING)
     private UnidadeMedida unidadeMedida;
 
-    @Column(name = "unidade_caseira")
-    private Integer unidadeCaseira;
-
     @ManyToOne
     @JoinColumn(name = "refeicaoId")
     private RefeicaoEntity refeicao;
 
-//    public ItemRefeicaoEntity(MetricasExerciciosRequestDto dto) {
-//        this.series = dto.getSeries();
-//        this.repeticoes = dto.getRepeticoes();
-//        this.tempoDescanso = dto.getTempoDescanso();
-//        this.observacao = dto.getObservacao();
-//    }
+
 }

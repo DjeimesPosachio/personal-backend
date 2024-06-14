@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.personal.entities.ExercicioEntity;
 import com.personal.entities.User;
 import com.personal.enums.UserRole;
+import com.personal.enums.UserStatus;
 import com.personal.repositories.ExercicioRepository;
 import com.personal.repositories.UsuarioRepository;
 import jakarta.transaction.Transactional;
@@ -50,6 +51,7 @@ public class DataInitilization implements ApplicationListener<ContextRefreshedEv
             admin.setEmail(EMAIL_PADRAO);
             admin.setSenha(passwordEncoder.encode("admin1234"));
             admin.setRole(UserRole.ADMIN);
+            admin.setStatus(UserStatus.ATIVO);
             usuarioRepository.save(admin);
         }
     }

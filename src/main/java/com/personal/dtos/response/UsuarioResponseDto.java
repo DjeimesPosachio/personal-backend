@@ -14,13 +14,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UsuarioResponseDto {
     private Long id;
-    private String name;
+    private String nome;
     private String email;
     private UserRole role;
     private UserStatus status;
     public UsuarioResponseDto(User user) {
         this.id = user.getId();
-        this.name = user.getNome();
+        this.nome = user.getNome();
         this.email = user.getEmail();
         this.role = user.getRole();
         this.status = user.getStatus();

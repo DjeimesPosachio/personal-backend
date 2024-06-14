@@ -20,6 +20,4 @@ public class ItemRefeicaoRequestDto {
 
     private UnidadeMedida unidadeMedida;
 
-    private Integer unidadeCaseira;
-
 }

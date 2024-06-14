@@ -27,7 +27,7 @@ public class AutheticationAppService {
         UsuarioResponseDto userResponseDto = UsuarioResponseDto.builder()
                 .id(((User) auth.getPrincipal()).getId())
                 .email(((User) auth.getPrincipal()).getEmail())
-                .name(((User) auth.getPrincipal()).getNome())
+                .nome(((User) auth.getPrincipal()).getNome())
                 .build();
 
         return new LoginResponseDto(token, userResponseDto);

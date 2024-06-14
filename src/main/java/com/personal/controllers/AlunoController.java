@@ -17,23 +17,6 @@ public class AlunoController {
 
     private final AlunoService alunoService;
 
-    @PostMapping
-    public ResponseEntity<HttpStatus> create(@RequestBody AlunoDto alunoDto) {
-        alunoService.create(alunoDto);
-        return new ResponseEntity<>(HttpStatus.CREATED);
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<HttpStatus> update(@RequestBody AlunoDto alunoDto) {
-        alunoService.update(alunoDto);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<AlunoResponseDto> findById(@PathVariable Long id) {
-        return new ResponseEntity<>(alunoService.recuperarAlunoPeloId(id), HttpStatus.OK);
-    }
-
     @GetMapping
     public Page<AlunoResponseDto> findAll(@RequestParam(name = "page", required = false, defaultValue = "0") int page,
                                                 @RequestParam(name = "size", required = false, defaultValue = "20") int size) {
