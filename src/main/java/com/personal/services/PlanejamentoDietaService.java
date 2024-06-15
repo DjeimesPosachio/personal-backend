@@ -88,8 +88,9 @@ public class PlanejamentoDietaService {
 
         LocalDate agora = LocalDate.now();
 
-        if(!agora.isBefore(dto.getDataInicialDieta()) && agora.isAfter(dto.getDataFinalDieta()))
+        if (!agora.isBefore(dieta.getDataInicialDieta()) && !agora.isAfter(dieta.getDataFinalDieta())) {
             throw new EventNotFoundException("Dieta já foi iniciada e não pode ser editada.");
+        }
 
         dieta.setDataInicialDieta(dto.getDataInicialDieta());
         dieta.setDataFinalDieta(dto.getDataFinalDieta());

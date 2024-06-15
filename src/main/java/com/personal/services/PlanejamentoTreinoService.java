@@ -22,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
@@ -81,9 +82,17 @@ public class PlanejamentoTreinoService {
     }
 
     public void update(Long id, PlanejamentoTreinoRequestDto dto) {
-        PlanejamentoTreinoEntity planejamentoTreinoEntity = findById(id);
 
         ValidatorUtils.throwError(validarUpdate(dto, id));
+
+        PlanejamentoTreinoEntity planejamentoTreinoEntity = findById(id);
+
+        LocalDate agora = LocalDate.now();
+
+
+        if (!agora.isBefore(planejamentoTreinoEntity.getDataInicialPlano()) && !agora.isAfter(planejamentoTreinoEntity.getDataFinalPlano())) {
+            throw new EventNotFoundException("Treino já foi iniciado e não pode ser editado.");
+        }
 
         planejamentoTreinoEntity.setDataInicialPlano(dto.getDataInicialPlano());
         planejamentoTreinoEntity.setDataFinalPlano(dto.getDataFinalPlano());

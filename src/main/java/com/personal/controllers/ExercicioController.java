@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.*;
@@ -49,9 +50,10 @@ public class ExercicioController {
     }
 
     @GetMapping
-    public Page<ExercicioResponseDto> findAll(@RequestParam(name = "page", required = false, defaultValue = "0") int page,
-                                                   @RequestParam(name = "size", required = false, defaultValue = "20") int size) {
-        return service.findAll(PageRequest.of(page, size));
+    public Page<ExercicioResponseDto> findAll(@RequestParam(name = "nomeExercicio", required = false) String nomeExercicio,
+                                              @RequestParam(name = "page", required = false, defaultValue = "0") int page,
+                                              @RequestParam(name = "size", required = false, defaultValue = "20") int size) {
+        return service.findAll(nomeExercicio, PageRequest.of(page, size));
     }
 
 }

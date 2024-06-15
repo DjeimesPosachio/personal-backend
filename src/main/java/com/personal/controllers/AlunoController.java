@@ -18,9 +18,10 @@ public class AlunoController {
     private final AlunoService alunoService;
 
     @GetMapping
-    public Page<AlunoResponseDto> findAll(@RequestParam(name = "page", required = false, defaultValue = "0") int page,
-                                                @RequestParam(name = "size", required = false, defaultValue = "20") int size) {
-        return alunoService.findAll(PageRequest.of(page, size));
+    public Page<AlunoResponseDto> findAll(@RequestParam(name = "nomeAluno", required = false) String nomeAluno,
+                                          @RequestParam(name = "page", required = false, defaultValue = "0") int page,
+                                          @RequestParam(name = "size", required = false, defaultValue = "20") int size) {
+        return alunoService.findAll(nomeAluno, PageRequest.of(page, size));
     }
 
 }

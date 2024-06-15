@@ -60,8 +60,8 @@ public class ExercicioService {
         return new ExercicioResponseDto(repository.save(exercicio));
     }
 
-    public Page<ExercicioResponseDto> findAll(Pageable pageable) {
-        Page<ExercicioEntity> exercicios = repository.findAll(pageable);
+    public Page<ExercicioResponseDto> findAll(String nomeExercicio, Pageable pageable) {
+        Page<ExercicioEntity> exercicios = repository.findByFilters(nomeExercicio, pageable);
 
         return exercicios.map(ExercicioResponseDto::new);
     }

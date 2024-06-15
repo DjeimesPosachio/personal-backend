@@ -23,8 +23,8 @@ public class AlunoService {
         return alunoRepository.findById(id).orElseThrow(() -> new EventNotFoundException("Aluno não encontrado"));
     }
 
-    public Page<AlunoResponseDto> findAll(Pageable pageable) {
-        Page<AlunoEntity> alunos = alunoRepository.findAll(pageable);
+    public Page<AlunoResponseDto> findAll(String nomeAluno, Pageable pageable) {
+        Page<AlunoEntity> alunos = alunoRepository.findByFilters(nomeAluno, pageable);
         return alunos.map(a -> new AlunoResponseDto(
                         a.getId(),
                         a.getNome(),
@@ -32,8 +32,8 @@ public class AlunoService {
                         a.getUser(),
                         planejamentoDietaRepository.existsCurrentDietaByAlunoId(a.getId()),
                         planejamentoTreinoRepository.existsCurrentTreinoByAlunoId(a.getId()),
-                        planejamentoDietaRepository.findDietaByAlunoId(a.getId()),
-                        planejamentoTreinoRepository.findTreinoByAlunoId(a.getId())
+                        planejamentoDietaRepository.findMaxIdByAlunoIdAndCurrentDate(a.getId()),
+                        planejamentoTreinoRepository.findIdByAlunoIdAndCurrentDate(a.getId())
                 )
         );
     }

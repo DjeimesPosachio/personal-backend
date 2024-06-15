@@ -110,8 +110,8 @@ public class UserService {
         repository.save(user);
     }
 
-    public Page<UsuarioResponseDto> buscarUsuarios(Pageable pageable) {
-        Page<User> usuarios = repository.findAll(pageable);
+    public Page<UsuarioResponseDto> buscarUsuarios(String nome, UserStatus status, Pageable pageable) {
+        Page<User> usuarios = repository.findByFilters(nome, status, pageable);
 
         return usuarios.map(UsuarioResponseDto::new);
     }
@@ -138,6 +138,14 @@ public class UserService {
         List<String> errors = Lists.newArrayList();
 
         validar(dto, errors);
+
+        boolean emailExistente = repository.existsByEmailAndIdNot(dto.getEmail(), id);
+
+        if(emailExistente){
+            errors.add("Email já existe.");
+            return errors;
+        }
+
 
         if(Objects.isNull(id))
             errors.add("Não foi informado o usuário para editar.");

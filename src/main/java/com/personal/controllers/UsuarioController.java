@@ -2,12 +2,14 @@ package com.personal.controllers;
 
 import com.personal.dtos.request.UserRequestDto;
 import com.personal.dtos.response.UsuarioResponseDto;
+import com.personal.enums.UserStatus;
 import com.personal.services.UserService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -45,8 +47,10 @@ public class UsuarioController {
     }
 
     @GetMapping
-    public Page<UsuarioResponseDto> buscarUsuarios(@RequestParam(name = "page", required = false, defaultValue = "0") int page,
+    public Page<UsuarioResponseDto> buscarUsuarios(@RequestParam(name = "status", required = false) UserStatus status,
+                                                   @RequestParam(name = "nome", required = false) String nome,
+                                                   @RequestParam(name = "page", required = false, defaultValue = "0") int page,
                                                    @RequestParam(name = "size", required = false, defaultValue = "20") int size) {
-        return service.buscarUsuarios(PageRequest.of(page, size));
+        return service.buscarUsuarios(nome, status, PageRequest.of(page, size));
     }
 }
