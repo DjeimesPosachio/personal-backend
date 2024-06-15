@@ -1,6 +1,5 @@
 package com.personal.repositories;
 
-import com.personal.entities.ExercicioEntity;
 import com.personal.entities.User;
 import com.personal.enums.UserStatus;
 import org.springframework.data.domain.Page;
@@ -11,7 +10,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDate;
 import java.util.Optional;
 
 @Repository
