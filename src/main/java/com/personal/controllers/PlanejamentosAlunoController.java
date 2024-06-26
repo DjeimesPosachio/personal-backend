@@ -18,7 +18,8 @@ public class PlanejamentosAlunoController {
     private final PlanejamentosAlunoService service;
 
     @GetMapping
-    public PlanejamentosAlunoResponseDto findByAlunoId(@RequestParam(name = "idAluno") Long idALuno) {
-        return service.recuperarPlanejamentosPeloIdAluno(idALuno);
+    public PlanejamentosAlunoResponseDto findByAlunoId(@RequestParam(name = "idTreino", required = false) Long idTreino,
+                                                       @RequestParam(name = "idDieta", required = false) Long idDieta) {
+        return service.recuperarPlanejamentos(idTreino, idDieta);
     }
 }
